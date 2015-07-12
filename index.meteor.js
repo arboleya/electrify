@@ -127,7 +127,7 @@ function release(){
   setup_folders();
   copy_templates();
   copy_bins();
-  copy_database();
+  // copy_database();
   bundle_meteor();
   install_meteor_dependencies();
   install_electrified_dependencies();
