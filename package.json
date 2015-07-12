@@ -1,0 +1,15 @@
+{
+  "name": "electrify",
+  "version": "1.0.0",
+  "main": "index.npm.js",
+  "description": "Package your Meteor apps with Electron, and butter.",
+  "author": "Anderson Arboleya <anderson@arboleya.me>",
+  "license": "MIT",
+  "dependencies": {
+    "shelljs": "0.5.1"
+  },
+  "devDependencies":{
+    "mversion": "1.10.x",
+    "npm-check": "^3.2.10"
+  }
+}
