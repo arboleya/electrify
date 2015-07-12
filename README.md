@@ -104,7 +104,7 @@ I started this project after being unable to accomplhish the same things using:
  * [Meteor-Electron](https://github.com/jrudio/meteor-electron)
 
 I would like to thank [Hems](https://github.com/hems) for the need for such
-a tool, otherwise I could ended up not not having the interest to build it.
+a tool, otherwise I could have ended up not having the interest to build it.
 
 I would also like also to thank the authors of
 [Electrometeor](https://github.com/sircharleswatson/Electrometeor) and
