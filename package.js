@@ -2,7 +2,7 @@ var name = 'arboleya:electrify';
 
 Package.describe({
   name: name,
-  version: '1.0.0',
+  version: '1.0.1',
   summary: 'Package your Meteor apps with Electron, and butter.',
   git: 'https://github.com/arboleya/electrify',
   documentation: 'README.md'
