@@ -45,10 +45,13 @@ _ELECTRIFIED_SERVER   = join(_ELECTRIFIED_APP      , 'programs', 'server');
 
 // electrified node_modules
 _ELECTRIFIED_MODS     = join(_ELECTRIFIED          , 'node_modules');
-_ELECTRIFIED_MODS_B   = join(_ELECTRIFIED_MODS     , '.bin');
 _ELECTRIFIED_ELECTRON = join(_ELECTRIFIED_MODS     , 'electron-prebuilt');
-_ELECTRON             = join(_ELECTRIFIED_MODS_B   , 'electron');
+_ELECTRIFIED_PACKAGER = join(_ELECTRIFIED_MODS     , 'electron-packager');
+
 _ELECTRON_PKG_JSON    = join(_ELECTRIFIED_ELECTRON , 'package.json');
+
+_ELECTRIFIED_MODS_B   = join(_ELECTRIFIED_MODS     , '.bin');
+_ELECTRON             = join(_ELECTRIFIED_MODS_B   , 'electron');
 _ELECTRON_PACKAGER    = join(_ELECTRIFIED_MODS_B   , 'electron-packager');
 
 // meteor stuff
