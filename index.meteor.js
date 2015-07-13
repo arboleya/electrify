@@ -174,18 +174,17 @@ function install_electrified_dependencies() {
 
   // in dev mode, link local copy of electrify module :)
   if(process.env.BUTTER === 'true') {
-    var source    = path.join(app_root(), '..', 'electrify');
-    var modules   = path.join(_ELECTRIFIED, 'node_modules');
-    var symbolik  =  path.join(modules, 'electrify');
+    var source  = path.join(app_root(), '..', 'electrify');
+    var symlink =  path.join(_ELECTRIFIED_MODS, 'electrify');
     
-    if(fs.exists(modules))
+    if(fs.exists(_ELECTRIFIED_MODS))
       return;
 
     mkdir('-p', modules);
 
     // when in dev mode, link electrify npm package right into node_modules
-    if(!fs.existsSync(symbolik))
-      ln('-s', source, path.join(modules, 'electrify'));
+    if(!fs.existsSync(symlink))
+      ln('-s', source, symlink);
   }
 
   log('installing electrified dependencies');
