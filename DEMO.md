@@ -19,6 +19,6 @@ Done.
 
 --
 
-You can also [package](/arboleya/electrify#packaging) it as a native app.
+You can also [package](https://github.com/arboleya/electrify/#packaging) it as a native app.
 
-For more info, check the project's [README](README.md).
+For more info, check the project's [README](https://github.com/arboleya/electrify).
