@@ -1,6 +1,6 @@
 {
   "name": "electrify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.npm.js",
   "description": "Package your Meteor apps with Electron, and butter.",
   "author": "Anderson Arboleya <anderson@arboleya.me>",

@@ -1,3 +1,7 @@
+1.0.2 / 2015-07-13
+===================
+ * Checking and fixing corrupted/incomplete `npm install`s
+
 1.0.1 / 2015-07-12
 ===================
  * Leaving development database behind
