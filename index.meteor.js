@@ -187,6 +187,29 @@ function install_electrified_dependencies() {
       ln('-s', source, symlink);
   }
 
+  // checks for a possible previous corrupted install of modules, this can
+  // happen if the network fails during the `npm_install` command or other
+  // similar case that precociously interupt it, preventing it from downloading
+  // and building electron-prebuilt or electron-packager modules, gracefully
+
+  // first we check if `node_modules` folder exists
+  if(fs.existsSync(_ELECTRIFIED_MODS)) {
+
+    // then we check if some of the needed binaries is not present
+    if(!fs.existsSync(_ELECTRON) || !fs.existsSync(_ELECTRON_PACKAGER)) {
+
+      // in case something is missing, it means something went wrong during the
+      // `npm_install` command, preventing it from finishing downloading or
+      // building everything properly
+
+      // so we remove any trace of these corrupted/incomplete install process
+      // before procceding and installing everything again
+      rm('-rf', _ELECTRIFIED_ELECTRON);
+      rm('-rf', _ELECTRIFIED_PACKAGER);
+      rm('-rf', _ELECTRIFIED_MODS_B);
+    }
+  }
+
   log('installing electrified dependencies');
   exec('cd ' + _ELECTRIFIED + ' && npm install', _SILENT_EXECS);
 }
