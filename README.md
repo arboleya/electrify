@@ -2,6 +2,8 @@
 
 Easily package your Meteor apps with Electron, and *butter*.
 
+> TL;DR - Check DIY [demo](DEMO.md).
+
 # Compatibility
 
   - Osx: ✓
