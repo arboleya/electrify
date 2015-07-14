@@ -51,7 +51,7 @@ mandatory for Meteor*, you'll need to have your Meteor app fully working on the
 desired platform before installing this plugin and packaging your app.
 
 So, at this time, you cannot package your app in a cross-platform fashion from
-on single OS.
+one single OS.
 
 Perhaps you can live with it? :)
 
