@@ -196,6 +196,7 @@ function install_electrified_dependencies() {
 *******************************************************************************/
 
 function launch_electron() {
+  log('launching electron');
   spawn(_ELECTRON, [_ELECTRIFIED]);
 }
 
