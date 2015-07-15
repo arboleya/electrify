@@ -1,14 +1,13 @@
 Package.describe({
   name: 'arboleya:electrify',
-  version: '1.0.3',
+  version: '1.0.4',
   summary: 'Package your Meteor apps with Electron, and butter.',
   git: 'https://github.com/arboleya/electrify',
   documentation: 'README.md'
 });
 
 Npm.depends({
-  'shelljs' : '0.5.1',
-  'posix': '2.0.1'
+  'shelljs' : '0.5.1'
 });
 
 Package.onUse(function(api) {

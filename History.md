@@ -1,6 +1,12 @@
+1.0.4 / 2015-07-15
+===================
+ * Removing posix library, using a cross-platform approach based on
+ `process.env.METEOR_PARENT_PID` for avoiding opening multiple Electorn windows
+ on server restart
+
 1.0.3 / 2015-07-15
 ===================
- * Avoid opening a new electron window per server restart, during development
+ * Avoid opening a new Electron window per server restart, during development
 
 1.0.2 / 2015-07-13
 ===================
