@@ -2,25 +2,19 @@
 
 Easily package your Meteor apps with Electron, and *butter*.
 
-> TL;DR - Check DIY [demo](DEMO.md).
+> TL;DR - Check the DIY [demo](DEMO.md).
 
-# Compatibility
+## Compatibility
 
-  - Osx: ✓
-  - Linux: 
-    - 64bit: ✓
-    - 32bit: ✓
-  - Win7: 
-    - 64bit: ✓
-    - 32bit: ✓
+Works on all Meteor's supported [platforms](https://github.com/meteor/meteor/wiki/Supported-Platforms).
 
-# Installation
+## Installation
 
 ````shell
 meteor add arboleya:electrify
 ````
 
-# Packaging
+## Packaging
 
 Keep your `meteor` running, fire up a second terminal tab and enter Meteor's
 interactive shell:
@@ -57,7 +51,7 @@ one single OS.
 
 Perhaps you can live with it? :)
 
-# Customizing 
+## Customizing 
 
   1. You'll notice a new folder called `.electrify` in your project root folder.
   2. This is the place where your `electrified` app will live.
@@ -98,45 +92,23 @@ app.on('window-all-closed', function() {
 });
 ````
 
-# Voilà
+## Voilà
 
 I started this project after being unable to accomplhish the same things using:
 
  * [Electrometeor](https://github.com/sircharleswatson/Electrometeor) 
  * [Meteor-Electron](https://github.com/jrudio/meteor-electron)
 
-I would like to thank [Hems](https://github.com/hems) for the need for such
-a tool, otherwise I could have ended up not having the interest to build it.
+However I'd like to thank these authors for all the inspiration.
 
-I would also like also to thank the authors of
-[Electrometeor](https://github.com/sircharleswatson/Electrometeor) and
-[Meteor-Electron](https://github.com/jrudio/meteor-electron) for all the
-inspiration.
+I'd also like to thank [Hems](https://github.com/hems) for the first insights.
 
-# Differences
+> This package differs from Electrometeor and meteor-electron in the way it
+requires absolute no learning curve and is heavily tested against Osx, Linux
+and Windows.
 
-This package differs from `Electrometeor` and `meteor-electron` in the way it
-requires absolute no learning curve and is heavily tested against Osx, Linux and
-Windows.
 # License
 
 The MIT License (MIT)
 
 Copyright (c) 2015 Anderson Arboleya
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
