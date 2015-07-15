@@ -103,7 +103,7 @@ However I'd like to thank these authors for all the inspiration.
 
 I'd also like to thank [Hems](https://github.com/hems) for the first insights.
 
-> This package differs from Electrometeor and meteor-electron in the way it
+> This package differs from `Electrometeor` and `meteor-electron` in the way it
 requires absolute no learning curve and is heavily tested against Osx, Linux
 and Windows.
 
