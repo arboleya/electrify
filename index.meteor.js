@@ -142,7 +142,7 @@ function release(){
 *******************************************************************************/
 
 function setup_folders(){
-  if(!fs.existsSync(_ELECTRIFIED)) {
+  if(!exists(_ELECTRIFIED)) {
     log('setting up folders');
     mkdir('-p', _ELECTRIFIED);
   }
@@ -153,17 +153,17 @@ function setup_folders(){
 *******************************************************************************/
 
 function copy_templates() {
-  if(!fs.existsSync(_ELECTRIFIED_INDEX))
+  if(!exists(_ELECTRIFIED_INDEX))
     log('copying template files');
 
-  if(!fs.existsSync(_ELECTRIFIED_PKG))
-    fs.writeFileSync(_ELECTRIFIED_PKG, TEMPLATES.pkg);
+  if(!exists(_ELECTRIFIED_PKG))
+    write(_ELECTRIFIED_PKG, TEMPLATES.pkg);
   
-  if(!fs.existsSync(_ELECTRIFIED_INDEX))
-    fs.writeFileSync(_ELECTRIFIED_INDEX, TEMPLATES.index);
+  if(!exists(_ELECTRIFIED_INDEX))
+    write(_ELECTRIFIED_INDEX, TEMPLATES.index);
 
-  if(!fs.existsSync(_ELECTRIFIED_IGNORE))
-    fs.writeFileSync(_ELECTRIFIED_IGNORE, TEMPLATES.gitignore);
+  if(!exists(_ELECTRIFIED_IGNORE))
+    write(_ELECTRIFIED_IGNORE, TEMPLATES.gitignore);
 }
 
 /*******************************************************************************
@@ -177,13 +177,13 @@ function install_electrified_dependencies() {
     var source  = path.join(app_root(), '..', 'electrify');
     var symlink =  path.join(_ELECTRIFIED_MODS, 'electrify');
     
-    if(fs.exists(_ELECTRIFIED_MODS))
+    if(exists(_ELECTRIFIED_MODS))
       return;
 
     mkdir('-p', modules);
 
     // when in dev mode, link electrify npm package right into node_modules
-    if(!fs.existsSync(symlink))
+    if(!exists(symlink))
       ln('-s', source, symlink);
   }
 
@@ -193,10 +193,10 @@ function install_electrified_dependencies() {
   // and building electron-prebuilt or electron-packager modules, gracefully
 
   // first we check if `node_modules` folder exists
-  if(fs.existsSync(_ELECTRIFIED_MODS)) {
+  if(exists(_ELECTRIFIED_MODS)) {
 
     // then we check if some of the needed binaries is not present
-    if(!fs.existsSync(_ELECTRON) || !fs.existsSync(_ELECTRON_PACKAGER)) {
+    if(!exists(_ELECTRON) || !exists(_ELECTRON_PACKAGER)) {
 
       // in case something is missing, it means something went wrong during the
       // `npm_install` command, preventing it from finishing downloading or
@@ -228,7 +228,7 @@ function launch_electron() {
 *******************************************************************************/
 
 function copy_bins() {
-  if(!fs.existsSync(_ELECTRIFIED_BIN)){
+  if(!exists(_ELECTRIFIED_BIN)){
     mkdir('-p', _ELECTRIFIED_BIN);
     log('copying mongo and node binaries');
     cp(_METEOR_MONGO, _ELECTRIFIED_BIN);
@@ -243,7 +243,7 @@ function copy_database() {
   mkdir('-p', _ELECTRIFIED_DB);
   cp('-r', _METEOR_LOCAL_DB_JOURNAL, _ELECTRIFIED_DB);
   _METEOR_LOCAL_DB_FILES.forEach(function(filepath){
-    if(fs.existsSync(filepath))
+    if(exists(filepath))
       cp('-r', filepath, _ELECTRIFIED_DB);
   });
 }
@@ -319,7 +319,7 @@ function app_root(){
     dir = path.resolve(join('.', up.join('/')));
     meteor_dir = join(dir, '.meteor');
     
-    if(fs.existsSync(meteor_dir))
+    if(exists(meteor_dir))
       return dir;
 
     up.push('..');
@@ -384,6 +384,23 @@ TEMPLATES = {
     'node_modules'
   ].join('\r\n')
 };
+
+/*******************************************************************************
+  SIMPLE FILE READ / WRITE / EXISTS helpers
+*******************************************************************************/
+
+function read(filepath, encoding) {
+  if(exists(filepath))
+    return fs.readFileSync(filepath, encoding || 'utf8');
+}
+
+function write(filepath, contents) {
+  fs.writeFileSync(filepath, contents);
+}
+
+function exists(filepath) {
+  return fs.existsSync(filepath);
+}
 
 /*******************************************************************************
   DEBUG
