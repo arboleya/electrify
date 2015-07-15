@@ -9,7 +9,8 @@ Package.describe({
 });
 
 Npm.depends({
-  'shelljs' : '0.5.1'
+  'shelljs' : '0.5.1',
+  'posix': '2.0.1'
 });
 
 

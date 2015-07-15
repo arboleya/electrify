@@ -9,6 +9,8 @@ var path  = Npm.require('path');
 var os    = Npm.require('os');
 var spawn = Npm.require('child_process').spawn;
 
+var posix = Npm.require('posix');
+
 var join = path.join;
 
 /*******************************************************************************
@@ -20,6 +22,7 @@ _PLATFORM = process.platform;
 _ARCH     = process.arch;
 _OS       = (_PLATFORM === 'darwin' ? 'osx' : _PLATFORM);
 _OS_HOME  = (_PLATFORM == 'win32' ? 'USERPROFILE' : 'HOME');
+_TMP      = os.tmpdir();
 
 // silent execs
 _SILENT_EXECS = {silent: process.env.BUTTER !== 'true'};
@@ -108,11 +111,33 @@ _METEOR_LOCAL_DB_FILES   = [
 
 this.__defineGetter__('electrify', release);
 
+// in development mode this method is called everytime server is restarted due
+// to some server file change, so we need some trick to avoid opening a new
+// Electron window everytime it happens - see the ppid stuff below
 Meteor.startup(function(){
+
   // ELECTRON_PRODUCTION variable comes from the `index.npm.js` file, check its
-  // initializationsection to get wtf is going on here
-  if(!process.env.ELECTRON_PRODUCTION)
+  // initialization section to get wtf is going on here - basically, since the
+  // app has bem packaged, this whole method is useless, so we simply abort
+  if(process.env.ELECTRON_PRODUCTION) return;
+  
+  // now we fetch the meteor-tool (our parent process) previous and current PID
+  var ppid_filepath = path.join(_TMP, '.electrify-ppid')
+  var previous_ppid = read(ppid_filepath);
+  var current_ppid  = posix.getppid();
+
+  // if the current ppid differs from the last, we assume some SIGINT has
+  // ocurred on the meteor-tool command line, so it's fine to launch electron
+  // window again otherwise we simply assume it's a mere server restart, close
+  // our eyes and relax :)
+  if(previous_ppid != current_ppid) {
+
+    // we also save the current ppid for next comparison
+    write(ppid_filepath, current_ppid);
+
+    // and start everything for development
     development();
+  }
 });
 
 /*******************************************************************************
