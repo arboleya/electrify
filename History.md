@@ -1,3 +1,7 @@
+1.0.3 / 2015-07-15
+===================
+ * Avoid opening a new electron window per server restart, during development
+
 1.0.2 / 2015-07-13
 ===================
  * Checking and fixing corrupted/incomplete `npm install`s
