@@ -9,8 +9,6 @@ var path  = Npm.require('path');
 var os    = Npm.require('os');
 var spawn = Npm.require('child_process').spawn;
 
-var posix = Npm.require('posix');
-
 var join = path.join;
 
 /*******************************************************************************
@@ -121,10 +119,10 @@ Meteor.startup(function(){
   // app has bem packaged, this whole method is useless, so we simply abort
   if(process.env.ELECTRON_PRODUCTION) return;
   
-  // now we fetch the meteor-tool (our parent process) previous and current PID
+  // now we fetch the meteor previous and current PID in order to compare them
   var ppid_filepath = path.join(_TMP, '.electrify-ppid')
   var previous_ppid = read(ppid_filepath);
-  var current_ppid  = posix.getppid();
+  var current_ppid  = process.env.METEOR_PARENT_PID;
 
   // if the current ppid differs from the last, we assume some SIGINT has
   // ocurred on the meteor-tool command line, so it's fine to launch electron
