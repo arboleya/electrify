@@ -16,6 +16,8 @@ meteor add arboleya:electrify
 
 ## Packaging
 
+### Meteor way
+
 Keep your `meteor` running, fire up a second terminal tab and enter Meteor's
 interactive shell:
 
@@ -31,7 +33,20 @@ electrify
 
 Press enter.
 
-This will output your `Electron` app inside `.electrify/.dist` folder.
+### NPM way
+
+Alternatively, you can do it from the `electrify` npm package -- even tough
+Meteor is required on the machine you wish to use for release your app.
+
+````shell
+npm install -g electrify
+cd /you/meteor/project && electrify
+````
+
+
+----
+
+Both methods will output your `Electron` app inside `.electrify/.dist` folder.
 
 > **NOTES**
 >
