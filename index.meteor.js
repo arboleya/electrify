@@ -2,12 +2,15 @@
   BASE REQUIREMENTS
 *******************************************************************************/
 
-Npm.require('shelljs/global');
+var is_meteor = 'undefined' != typeof(Meteor);
+var require   = (is_meteor ? Npm.require : require);
 
-var fs    = Npm.require('fs');
-var path  = Npm.require('path');
-var os    = Npm.require('os');
-var spawn = Npm.require('child_process').spawn;
+require('shelljs/global');
+
+var fs    = require('fs');
+var path  = require('path');
+var os    = require('os');
+var spawn = require('child_process').spawn;
 
 var join = path.join;
 
@@ -109,38 +112,42 @@ _METEOR_LOCAL_DB_FILES   = [
 
 this.__defineGetter__('electrify', release);
 
-// in development mode this method is called everytime server is restarted due
-// to some server file change, so we need some trick to avoid opening a new
-// Electron window everytime it happens - see the ppid stuff below
-Meteor.startup(function(){
+if(is_meteor) {
+  // in development mode this method is called everytime server is restarted due
+  // to some server file change, so we need some trick to avoid opening a new
+  // Electron window everytime it happens - see the ppid stuff below
+  Meteor.startup(function(){
 
-  // ELECTRON_PRODUCTION variable comes from the `index.npm.js` file, check its
-  // initialization section to get wtf is going on here - basically, since the
-  // app has bem packaged, this whole method is useless, so we simply abort
-  if(process.env.ELECTRON_PRODUCTION) return;
-  
-  // now we fetch the meteor previous and current PID in order to compare them
-  var ppid_filepath = path.join(_TMP, '.electrify-ppid')
-  var previous_ppid = read(ppid_filepath);
-  var current_ppid  = process.env.METEOR_PARENT_PID;
+    // ELECTRON_PRODUCTION variable comes from the `index.js` file, check its
+    // initialization section to get wtf is going on here - basically, since the
+    // app has bem packaged, this whole method is useless, so we simply abort
+    if(process.env.ELECTRON_PRODUCTION) return;
+    
+    // now we fetch the meteor previous and current PID in order to compare them
+    var ppid_filepath = path.join(_TMP, '.electrify-ppid')
+    var previous_ppid = read(ppid_filepath);
+    var current_ppid  = process.env.METEOR_PARENT_PID;
 
-  // if the current ppid differs from the last, we assume some SIGINT has
-  // ocurred on the meteor-tool command line, so it's fine to launch electron
-  // window again otherwise we simply assume it's a mere server restart, close
-  // our eyes and relax :)
-  if(previous_ppid != current_ppid) {
+    // if the current ppid differs from the last, we assume some SIGINT has
+    // ocurred on the meteor-tool command line, so it's fine to launch electron
+    // window again otherwise we simply assume it's a mere server restart, close
+    // our eyes and relax :)
+    if(previous_ppid != current_ppid) {
 
-    // we also save the current ppid for next comparison
-    write(ppid_filepath, current_ppid);
+      // we also save the current ppid for next comparison
+      write(ppid_filepath, current_ppid);
 
-    // and start everything for development
-    development();
-  }
-});
+      // and start everything for development
+      development();
+    }
+  });
+}
 
 /*******************************************************************************
   STARTUP MODES
 *******************************************************************************/
+
+if(!is_meteor) exports.release = release;
 
 function development(){
   setup_folders();
@@ -203,7 +210,7 @@ function install_electrified_dependencies() {
     if(exists(_ELECTRIFIED_MODS))
       return;
 
-    mkdir('-p', modules);
+    mkdir('-p', _ELECTRIFIED_MODS);
 
     // when in dev mode, link electrify npm package right into node_modules
     if(!exists(symlink))
@@ -306,8 +313,8 @@ function install_meteor_dependencies() {
 *******************************************************************************/
 
 function package_app() {
-  var name    = Npm.require(_ELECTRIFIED_PKG).name;
-  var version = Npm.require(_ELECTRON_PKG_JSON).version;
+  var name    = require(_ELECTRIFIED_PKG).name;
+  var version = require(_ELECTRON_PKG_JSON).version;
 
   var command = [
     _ELECTRON_PACKAGER +' '+ _ELECTRIFIED + ' ' + name,

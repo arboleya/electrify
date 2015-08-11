@@ -2,6 +2,7 @@
   "name": "electrify",
   "version": "1.0.4",
   "main": "index.npm.js",
+  "bin": "electrify",
   "description": "Package your Meteor apps with Electron, and butter.",
   "author": "Anderson Arboleya <anderson@arboleya.me>",
   "license": "MIT",
