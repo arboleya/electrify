@@ -400,7 +400,7 @@ TEMPLATES = {
   '  "devDependencies": {',
   '    "electron-prebuilt": "^0.29.2",',
   '    "electron-packager": "^5.0.1",',
-  '    "electrify": "^1.0.0"',
+  '    "electrify": "^1.1.0"',
   '  }',
   '}'
   ].join('\r\n'),

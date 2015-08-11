@@ -1,3 +1,7 @@
+1.1.0 / 2015-08-11
+===================
+ * Adding alternative method to package app, using purely NPM.
+
 1.0.4 / 2015-07-15
 ===================
  * Removing posix library, using a cross-platform approach based on
