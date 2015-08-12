@@ -35,8 +35,8 @@ Press enter.
 
 ### NPM way
 
-Alternatively, you can do it from the `electrify` npm package -- even tough
-Meteor is required on the machine you wish to use for release your app.
+Alternatively, you can do it with the `electrify` npm package -- Meteor is still
+required in order for this command to run, but the Meteor server can be down.
 
 ````shell
 npm install -g electrify
