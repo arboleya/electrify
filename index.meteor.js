@@ -30,7 +30,7 @@ _SILENT_EXECS = {silent: process.env.BUTTER !== 'true'};
 
 // general folders
 _HOME        = process.env[_OS_HOME];
-_APP_ROOT    = app_root();
+_APP_ROOT    = path.resolve(is_meteor ? '../../../../..' : '.');
 
 // elecritifed lots of folders
 _ELECTRIFIED          = join(_APP_ROOT             , '.electrify');
@@ -204,7 +204,7 @@ function install_electrified_dependencies() {
 
   // in dev mode, link local copy of electrify module :)
   if(process.env.BUTTER === 'true') {
-    var source  = path.join(app_root(), '..', 'electrify');
+    var source  = path.join(_APP_ROOT, '..', 'electrify');
     var symlink =  path.join(_ELECTRIFIED_MODS, 'electrify');
     
     if(exists(_ELECTRIFIED_MODS))
@@ -337,24 +337,6 @@ function package_app() {
   log('wrote new app to ', _ELECTRIFIED_RELEASE);
 }
 
-/*******************************************************************************
-  ROOT FOLDER EVALUATION (not good)
-*******************************************************************************/
-
-function app_root(){
-  var dir, up = [];
-  
-  while(true) {
-
-    dir = path.resolve(join('.', up.join('/')));
-    meteor_dir = join(dir, '.meteor');
-    
-    if(exists(meteor_dir))
-      return dir;
-
-    up.push('..');
-  }
-}
 
 /*******************************************************************************
   TEMPLATES
