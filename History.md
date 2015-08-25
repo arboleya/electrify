@@ -1,3 +1,7 @@
+1.1.1 / 2015-08-25
+===================
+ * Fixing project's root folder evaluation approach
+
 1.1.0 / 2015-08-11
 ===================
  * Adding alternative method to package app, using purely NPM.

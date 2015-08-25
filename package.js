@@ -1,6 +1,6 @@
 Package.describe({
   name: 'arboleya:electrify',
-  version: '1.1.0',
+  version: '1.1.1',
   summary: 'Package your Meteor apps with Electron, and butter.',
   git: 'https://github.com/arboleya/electrify',
   documentation: 'README.md'
