@@ -222,16 +222,16 @@ exports.shutdown = function(app, event){
 *******************************************************************************/
 
 function freeport(start, done) {
-  var server = net.createServer();
-  server.listen(start, function(err) {
-    server.once('close', function() {
+  var socket = new net.Socket()
+    .once('connect', function() {
+      socket.destroy();
+      freeport(++start, done);
+    })
+    .once('error', function(err) {
+      socket.destroy();
       done(start);
-    });
-    server.close();
-  });
-  server.on('error', function (err) {
-    freeport(start++, done);
-  });
+    })
+    .connect(start, '127.0.0.1');
 }
 
 /*******************************************************************************
