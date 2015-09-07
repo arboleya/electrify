@@ -74,14 +74,20 @@ if(_PLATFORM === 'win32') {
 
 }
 
+// meteor folders
 _METEOR_TOOLS_FOLDER    = _METEOR_BIN.replace(/meteor(\.bat)?$/m, '');
 _METEOR_DEV_BUNDLE      = path.join(_METEOR_TOOLS_FOLDER, 'dev_bundle');
 _METEOR_SERVER_LIB      = path.join(_METEOR_DEV_BUNDLE, 'server-lib');
 _METEOR_SERVER_LIB_MODS = path.join(_METEOR_SERVER_LIB, 'node_modules');
 
-_METEOR_MONGO    = path.join(_METEOR_DEV_BUNDLE, 'mongodb', 'bin', 'mongo');
-_METEOR_MONGOD   = _METEOR_MONGO + 'd';
-_METEOR_NODE     = path.join(_METEOR_DEV_BUNDLE, 'bin', 'node');
+// meteor's mongodb distro
+_METEOR_MONGO  = path.join(_METEOR_DEV_BUNDLE, 'mongodb', 'bin', 'mongo');
+_METEOR_MONGOD = _METEOR_MONGO + 'd';
+
+// meteor's nodejs + npm distro
+_METEOR_NODE = path.join(_METEOR_DEV_BUNDLE, 'bin', 'node');
+_METEOR_NPM  = path.join(_METEOR_DEV_BUNDLE, 'bin', 'npm');
+
 _METEOR_LOCAL_DB = path.join(_APP_ROOT, '.meteor', 'local', 'db');
 
 // bin ref differences
@@ -92,7 +98,10 @@ if(_PLATFORM === 'win32') {
 
   _METEOR_MONGO  += '.exe';
   _METEOR_MONGOD += '.exe';
+
   _METEOR_NODE   += '.exe';
+
+  _METEOR_NPM    += '.cmd';
 }
 
 // database
@@ -241,7 +250,7 @@ function install_electrified_dependencies() {
   }
 
   log('installing electrified dependencies');
-  exec('cd ' + _ELECTRIFIED + ' && npm install', _SILENT_EXECS);
+  exec('cd ' + _ELECTRIFIED + ' && '+ _METEOR_NPM +' install', _SILENT_EXECS);
 }
 
 /*******************************************************************************
