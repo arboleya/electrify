@@ -1,3 +1,9 @@
+1.1.2 / 2015-09-07
+===================
+ * Improving free port evaluation approach
+ * Using Meteor's distributed `npm` to minimize permission problems often found
+ when using user's `npm`
+
 1.1.1 / 2015-08-25
 ===================
  * Fixing project's root folder evaluation approach
