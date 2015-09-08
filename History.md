@@ -1,6 +1,6 @@
 1.1.3 / 2015-09-08
 ===================
- * Adding auto self-upgrade routine for `.electrified` local npm module
+ * Adding auto self-upgrade routine for `.electrify` local npm module
 
 1.1.2 / 2015-09-07
 ===================
