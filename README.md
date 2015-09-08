@@ -122,6 +122,12 @@ I'd also like to thank [Hems](https://github.com/hems) for the first insights.
 requires absolute no learning curve and is heavily tested against Osx, Linux
 and Windows.
 
+# Problems?
+
+This is very young and active software, so make sure your are always up to date
+before opening an issue.
+
+Follow the released fixes through the [History.md](History.md) file.
 
 ## License
 
