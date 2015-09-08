@@ -1,3 +1,7 @@
+1.1.3 / 2015-09-08
+===================
+ * Adding auto self-upgrade routine for `.electrified` local npm module
+
 1.1.2 / 2015-09-07
 ===================
  * Improving free port evaluation approach
