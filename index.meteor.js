@@ -18,6 +18,9 @@ var join = path.join;
   VARIABLES
 *******************************************************************************/
 
+// current version
+VERSION = '1.1.2';
+
 // system
 _PLATFORM = process.platform;
 _ARCH     = process.arch;
@@ -235,17 +238,28 @@ function install_electrified_dependencies() {
   if(exists(_ELECTRIFIED_MODS)) {
 
     // then we check if some of the needed binaries is not present
-    if(!exists(_ELECTRON) || !exists(_ELECTRON_PACKAGER)) {
+    var binaries_missing = !exists(_ELECTRON) || !exists(_ELECTRON_PACKAGER);
 
+    // or local npm version is out of date
+    var package_json = require(_ELECTRIFIED_PKG)
+    var outdated = package_json.devDependencies.electrify.version != VERSION;
+
+    if(binaries_missing || outdated) {
       // in case something is missing, it means something went wrong during the
       // `npm_install` command, preventing it from finishing downloading or
       // building everything properly
 
-      // so we remove any trace of these corrupted/incomplete install process
-      // before procceding and installing everything again
-      rm('-rf', _ELECTRIFIED_ELECTRON);
-      rm('-rf', _ELECTRIFIED_PACKAGER);
-      rm('-rf', _ELECTRIFIED_MODS_B);
+      // so we remove the `node_modules` folder to erase any trace of these
+      // corrupted/incomplete install process before procceding and installing
+      // everything again
+      rm('-rf', _ELECTRIFIED_MODS);
+
+      // update local copy of npm electify module
+      if(outdated) {
+        log('upgrading local `.electrify` npm module to `v'+ VERSION +'`');
+        package_json.devDependencies.electrify = VERSION;
+        write(_ELECTRIFIED_PKG, JSON.stringify(package_json, null, 2));
+      }
     }
   }
 
