@@ -19,7 +19,7 @@ var join = path.join;
 *******************************************************************************/
 
 // current version
-VERSION = '1.1.2';
+VERSION = '1.1.3';
 
 // system
 _PLATFORM = process.platform;
@@ -405,7 +405,7 @@ TEMPLATES = {
   '  "devDependencies": {',
   '    "electron-prebuilt": "^0.29.2",',
   '    "electron-packager": "^5.0.1",',
-  '    "electrify": "1.1.2"',
+  '    "electrify": "'+ VERSION +'"',
   '  }',
   '}'
   ].join('\r\n'),
