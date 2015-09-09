@@ -115,7 +115,7 @@ function spawns_meteor(){
   env.MONGO_URL       = MONGO_URL;
   env.PORT            = METEOR_PORT;
   env.ROOT_URL        = METEOR_ROOT_URL;
-  env.METEOR_SETTINGS = JSON.parse(cat(METEOR_SETTINGS));
+  env.METEOR_SETTINGS = JSON.stringify(require(METEOR_SETTINGS));
   
   log('starting meteor', env);
   METEOR = spawn(NODE, [METEOR_MAIN], {env: env});
