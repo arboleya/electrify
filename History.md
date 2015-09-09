@@ -1,3 +1,7 @@
+1.2.1 / 2015-09-09
+===================
+  * Fixing Meteor's setting format
+
 1.2.0 / 2015-09-09
 ===================
   * Fixing version checkup
