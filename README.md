@@ -28,8 +28,11 @@ meteor shell
 Once inside it, execute the `electrify` command:
 
 ````shell
+# NOTE: if you started the server with `meteor --settings file.json`, those
+# settings # will be automatically available on the packaged app
 electrify
 ````
+
 
 Press enter.
 
@@ -40,9 +43,13 @@ required in order for this command to run, but the Meteor server can be down.
 
 ````shell
 npm install -g electrify
-cd /you/meteor/project && electrify
-````
+cd /you/meteor/project
+electrify
 
+# NOTE: Meteor's settings is not available when using NPM to package your app,
+# so if your app makes use of `meteor --settings`, you must set it like:
+electrify --settings production.json
+````
 
 ----
 
