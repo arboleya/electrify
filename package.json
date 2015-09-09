@@ -7,9 +7,10 @@
   "author": "Anderson Arboleya <anderson@arboleya.me>",
   "license": "MIT",
   "dependencies": {
+    "commander": "^2.8.1",
     "shelljs": "0.5.1"
   },
-  "devDependencies":{
+  "devDependencies": {
     "mversion": "1.10.x",
     "npm-check": "^3.2.10"
   }
