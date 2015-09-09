@@ -242,7 +242,7 @@ function install_electrified_dependencies() {
 
     // or local npm version is out of date
     var package_json = require(_ELECTRIFIED_PKG)
-    var outdated = package_json.devDependencies.electrify.version != VERSION;
+    var outdated = package_json.devDependencies.electrify != VERSION;
 
     if(binaries_missing || outdated) {
       // in case something is missing, it means something went wrong during the
