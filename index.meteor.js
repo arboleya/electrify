@@ -266,6 +266,8 @@ function install_electrified_dependencies() {
         package_json.devDependencies.electrify = VERSION;
         write(_ELECTRIFIED_PKG, JSON.stringify(package_json, null, 2));
       }
+    } else {
+      return;
     }
   }
 
