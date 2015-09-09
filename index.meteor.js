@@ -216,17 +216,17 @@ function install_electrified_dependencies() {
 
   // in dev mode, link local copy of electrify module :)
   if(process.env.BUTTER === 'true') {
+
     var source  = path.join(_APP_ROOT, '..', 'electrify');
     var symlink =  path.join(_ELECTRIFIED_MODS, 'electrify');
     
-    if(exists(_ELECTRIFIED_MODS))
-      return;
+    if(!exists(_ELECTRIFIED_MODS))
+      mkdir('-p', _ELECTRIFIED_MODS);
 
-    mkdir('-p', _ELECTRIFIED_MODS);
 
     // when in dev mode, link electrify npm package right into node_modules
-    if(!exists(symlink))
-      ln('-s', source, symlink);
+    rm('-rf', symlink);
+    ln('-s', source, symlink);
   }
 
   // checks for a possible previous corrupted install of modules, this can
