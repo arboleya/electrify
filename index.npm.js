@@ -45,6 +45,7 @@ var METEOR_PORT;
 var METEOR_FULL_URL;
 
 var METEOR_MAIN     = path.join(APP, 'app', 'main.js');
+var METEOR_SETTINGS = path.join(APP, 'app', 'settings.json');
 var METEOR_ROOT_URL = 'http://localhost';
 
 
@@ -110,10 +111,11 @@ function spawns_mongo(done){
 function spawns_meteor(){
 
   // mimics the process' env data and sets mongo vars on it
-  var env       = Object.create(process.env);
-  env.MONGO_URL = MONGO_URL;
-  env.PORT      = METEOR_PORT;
-  env.ROOT_URL  = METEOR_ROOT_URL;
+  var env             = Object.create(process.env);
+  env.MONGO_URL       = MONGO_URL;
+  env.PORT            = METEOR_PORT;
+  env.ROOT_URL        = METEOR_ROOT_URL;
+  env.METEOR_SETTINGS = JSON.parse(cat(METEOR_SETTINGS));
   
   log('starting meteor', env);
   METEOR = spawn(NODE, [METEOR_MAIN], {env: env});

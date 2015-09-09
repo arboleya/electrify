@@ -1,3 +1,37 @@
 #!/usr/bin/env node
 
+_NPM_SETTINGS = {};
+
+var path      = require('path');
+var fs        = require('fs');
+var program   = require('commander');
+
+program
+  .usage('[--settings <file>]')
+  .version(require('./package.json').version)
+  .option('--settings [file]', 'Set Meteor settings')
+  .on('--help', function(){
+    console.log('  Examples:');
+    console.log('');
+    console.log('    $ electrify');
+    console.log('    $ electrify --settings settings.json');
+    console.log('');
+  })
+  .parse(process.argv);
+
+if(program.settings){
+  var relative = path.join(process.cwd(), program.settings);
+  var absolute = path.resolve(program.settings);
+  var settings = (absolute == program.settings ? absolute : relative);
+
+  if(!fs.existsSync(settings)) {
+    console.log('settings file not found: ', relative);
+    process.exit();
+  }
+
+  _NPM_SETTINGS = require(settings);
+}
+else
+  _NPM_SETTINGS = {};
+
 require('./index.meteor.js').release();
