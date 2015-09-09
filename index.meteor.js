@@ -93,6 +93,12 @@ _METEOR_NPM  = path.join(_METEOR_DEV_BUNDLE, 'bin', 'npm');
 
 _METEOR_LOCAL_DB = path.join(_APP_ROOT, '.meteor', 'local', 'db');
 
+if(is_meteor)
+  _METEOR_SETTINGS = Meteor.settings;
+else {
+  _METEOR_SETTINGS = _NPM_SETTINGS;
+}
+
 // bin ref differences
 if(_PLATFORM === 'win32') {
   
