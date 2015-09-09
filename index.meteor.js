@@ -321,6 +321,9 @@ function bundle_meteor() {
     'meteor build ' + _ELECTRIFIED_TEMP + ' --server null --directory'
   ].join(' && '), _SILENT_EXECS);
 
+  var settings_path = path.join(_ELECTRIFIED_BUNDLE, 'settings.json');
+  write(settings_path, JSON.stringify(_METEOR_SETTINGS));
+
   rm('-rf', _ELECTRIFIED_APP);
   mv(_ELECTRIFIED_BUNDLE, _ELECTRIFIED_APP);
   rm('-rf', _ELECTRIFIED_TEMP);
