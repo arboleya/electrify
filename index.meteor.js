@@ -318,8 +318,7 @@ function bundle_meteor() {
 
   exec([
     'cd ' + _APP_ROOT,
-    'meteor build ' + _ELECTRIFIED_TEMP + ' --server null --directory',
-    'cd ' + _APP_ROOT
+    'meteor build ' + _ELECTRIFIED_TEMP + ' --server null --directory'
   ].join(' && '), _SILENT_EXECS);
 
   rm('-rf', _ELECTRIFIED_APP);
