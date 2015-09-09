@@ -19,7 +19,7 @@ var join = path.join;
 *******************************************************************************/
 
 // current version
-VERSION = '1.1.3';
+VERSION = '1.2.0';
 
 // system
 _PLATFORM = process.platform;

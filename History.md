@@ -1,3 +1,8 @@
+1.2.0 / 2015-09-09
+===================
+  * Fixing version checkup
+  * Adding support for `meteor --settings` from both Meteor and NPM
+
 1.1.3 / 2015-09-08
 ===================
  * Adding auto self-upgrade routine for `.electrify` local npm module
