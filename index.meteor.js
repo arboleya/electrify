@@ -281,7 +281,7 @@ function install_electrified_dependencies() {
 
 function launch_electron() {
   log('launching electron');
-  spawn(_ELECTRON, [_ELECTRIFIED]);
+  spawn(_METEOR_NODE, [_ELECTRON, _ELECTRIFIED], {stdio: 'inherit'});
 }
 
 /*******************************************************************************
@@ -348,6 +348,7 @@ function package_app() {
   var version = require(_ELECTRON_PKG_JSON).version;
 
   var command = [
+    _METEOR_NODE + ' ',
     _ELECTRON_PACKAGER +' '+ _ELECTRIFIED + ' ' + name,
     '--out=' + _ELECTRIFIED_RELEASE,
     '--arch=' + _ARCH,
