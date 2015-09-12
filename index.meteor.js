@@ -58,8 +58,9 @@ _ELECTRIFIED_PACKAGER = join(_ELECTRIFIED_MODS     , 'electron-packager');
 _ELECTRON_PKG_JSON    = join(_ELECTRIFIED_ELECTRON , 'package.json');
 
 _ELECTRIFIED_MODS_B   = join(_ELECTRIFIED_MODS     , '.bin');
-_ELECTRON             = join(_ELECTRIFIED_MODS_B   , 'electron');
-_ELECTRON_PACKAGER    = join(_ELECTRIFIED_MODS_B   , 'electron-packager');
+
+_ELECTRON             = join(_ELECTRIFIED_ELECTRON   , 'cli.js');
+_ELECTRON_PACKAGER    = join(_ELECTRIFIED_PACKAGER   , 'cli.js');
 
 // meteor stuff
 if(_PLATFORM === 'win32') {
@@ -89,8 +90,13 @@ _METEOR_MONGOD = _METEOR_MONGO + 'd';
 
 // meteor's nodejs + npm distro
 _METEOR_NODE = path.join(_METEOR_DEV_BUNDLE, 'bin', 'node');
-_METEOR_NPM  = path.join(_METEOR_DEV_BUNDLE, 'bin', 'npm');
 
+if(_PLATFORM === 'win32')
+  _METEOR_MODS = path.join(_METEOR_DEV_BUNDLE, 'bin', 'node_modules');
+else
+  _METEOR_MODS = path.join(_METEOR_DEV_BUNDLE, 'lib', 'node_modules');
+
+_METEOR_NPM  = path.join(_METEOR_MODS, 'npm', 'bin', 'npm-cli.js');
 _METEOR_LOCAL_DB = path.join(_APP_ROOT, '.meteor', 'local', 'db');
 
 if(is_meteor)
@@ -101,16 +107,9 @@ else {
 
 // bin ref differences
 if(_PLATFORM === 'win32') {
-  
-  _ELECTRON          += '.cmd';
-  _ELECTRON_PACKAGER += '.cmd';
-
   _METEOR_MONGO  += '.exe';
   _METEOR_MONGOD += '.exe';
-
   _METEOR_NODE   += '.exe';
-
-  _METEOR_NPM    += '.cmd';
 }
 
 // database
@@ -272,7 +271,8 @@ function install_electrified_dependencies() {
   }
 
   log('installing electrified dependencies');
-  exec('cd ' + _ELECTRIFIED + ' && '+ _METEOR_NPM +' install', _SILENT_EXECS);
+  var cmd = ['cd', _ELECTRIFIED, '&&', _METEOR_NODE, _METEOR_NPM, 'install'];
+  exec(cmd.join(' '), _SILENT_EXECS);
 }
 
 /*******************************************************************************
