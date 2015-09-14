@@ -1,7 +1,14 @@
+1.2.2 / 2015-09-14
+===================
+  * Executing dependencies' (electron, electron-packager, npm) through it's JS
+  files (instead of its binaries) for more cross-platform compatibility and
+  flexibility (closes [#8](https://github.com/arboleya/electrify/issues/8))
+
 1.2.1 / 2015-09-09
 ===================
   * Fixing Meteor's setting format
 
+  
 1.2.0 / 2015-09-09
 ===================
   * Fixing version checkup
