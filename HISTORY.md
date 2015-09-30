@@ -1,3 +1,9 @@
+1.3.0 / 2015-09-14
+===================
+  * Refactoring everything
+  * Adding tests
+  * Starting initial tests with plugins
+
 1.2.2 / 2015-09-14
 ===================
   * Executing dependencies' (electron, electron-packager, npm) through it's JS

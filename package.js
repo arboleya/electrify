@@ -1,17 +1,30 @@
 Package.describe({
   name: 'arboleya:electrify',
-  version: '1.2.2',
+  version: '1.3.0',
   summary: 'Package your Meteor apps with Electron, and butter.',
   git: 'https://github.com/arboleya/electrify',
   documentation: 'README.md'
 });
 
+var sha          = 'bf658fd1c03d53ba0d0eb87b1a853eb34ade362e';
+var version_path = null;
+
+if(process.env.DEVELECTRIFY == 'true') {
+  console.log('[======================== ELECTRIFY ========================]');
+  console.log('[   Running electrify in dev mode with `DEVELECTRIFY=true`  ]');
+  console.log('[===========================================================]');
+  version_path = 'http://localhost:7777/' + sha;
+}
+else
+  version_path = require('./package.json').version;
+
+
 Npm.depends({
-  'shelljs' : '0.5.1'
+  'electrify': version_path
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
-  api.addFiles('index.meteor.js', 'server');
-  api.export('electrify');
+  api.addFiles('meteor/index.js', 'server');
+  api.export('Electrify');
 });

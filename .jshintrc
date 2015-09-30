@@ -1,0 +1,20 @@
+{
+  "undef": true,
+  "unused": true,
+  "node": true,
+
+  "globals": {
+    "Electrify": true,
+    "Npm": true,
+    "Meteor": true,
+    "Package": true,
+
+
+    "target": true,
+
+    "before": true,
+    "after": true,
+    "describe": true,
+    "it": true
+  }
+}
