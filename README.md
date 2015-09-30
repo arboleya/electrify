@@ -1,9 +1,19 @@
+[![Windows](https://travis-ci.org/arboleya/electrify.svg)](https://travis-ci.org/arboleya/electrify)
+[![Windows](https://ci.appveyor.com/api/projects/status/mgcmv8cxiu5ahr6x?svg=true)](https://ci.appveyor.com/project/arboleya/electrify)
+
 # Electrify
 
 Easily package your Meteor apps with Electron, and *butter*.
 
-> TL;DR - Check the DIY [demo](DEMO.md).
 
+## TL;DR
+
+````shell
+meteor create --example leaderboard
+cd leaderboard
+meteor add arboleya:electrify
+meteor
+````
 ## Compatibility
 
 Works on all Meteor's supported [platforms](https://github.com/meteor/meteor/wiki/Supported-Platforms).
@@ -80,7 +90,7 @@ Perhaps you can live with it? :)
   3. Inside of it, there will be a `package.json` and `index.js` file.
   4. They are simple templates with the minimum amount of code for it to work.
   5. Customize them as you need, it's a plain Electron project.
-  6. Just pay attention, keep the `elecrify` boot/shutdown process working.
+  6. Just pay attention, keep the `elecrify` start/stop process working.
   7. Also keep the Electron `node-integration = off`.
 
 ````javascript
@@ -95,22 +105,21 @@ app.on('ready', function() {
   window = new browser({
     width: 1200,
     height: 900,
-    'node-integration': false                // <~ node-integration = off
+    'node-integration': false                  // <~ node-integration = off
   });
   
-  electrify.boot(function() {                // <~ electrify:boot
-    window.loadUrl(electrify.meteor_url);
+  electrify.start(function(meteor_root_url) {  // <~ electrify:start
+    window.loadUrl(meteor_root_url);
   });
 
-});
-
-
-app.on('will-quit', function(event) {
-  electrify.shutdown(app, event);            // <~ electrify:shutdown
 });
 
 app.on('window-all-closed', function() {
   app.quit();
+});
+
+app.on('will-quit', function(event) {
+  electrify.shutdown(app, event);              // <~ electrify:stop
 });
 ````
 
