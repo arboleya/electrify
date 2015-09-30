@@ -4,6 +4,8 @@ environment:
 
 # Install scripts. (runs after repo cloning)
 install:
+  # install modules
+  - npm install
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # Download Meteor
@@ -13,8 +15,6 @@ install:
   # Restart
   - ps: Start-Sleep -s 5
   - ps: Restart-Computer -Force
-  # install modules
-  - npm install
 
 # Post-install test scripts.
 test_script:
