@@ -138,22 +138,22 @@ target.tar = function(){
 
 // tests
 target.test = function() {
-  target.tar();
+  var server = target.tar();
   spawn(node_bin, [_MOCHA, 'test'], {
     stdio: 'inherit',
     env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
-  })
-    .on('exit', function() {
-      process.exit();
-    });
+  }).on('exit', function() {
+    server.close();
+  });
 };
 
 target['test.cover'] = function(done){
-  target.tar();
+  var server = target.tar();
   spawn(node_bin, [ISTANBUL, 'cover', _MOCHA], {
     stdio: 'inherit',
     env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
   }).on('exit', function(){
+    server.close();
     if(done) done();
   });
 };
