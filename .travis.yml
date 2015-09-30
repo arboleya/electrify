@@ -9,7 +9,11 @@ node_js:
 
 install:
   - npm install
+  - npm install -g n
+  - n 0.10.4
   - curl https://install.meteor.com | /bin/sh
+  - which meteor
+  - node -v
 
 script:
   - node make.js test.cover
