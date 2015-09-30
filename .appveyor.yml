@@ -22,7 +22,7 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - node make.js test.cover
+  - node make.js test.cover.send
 
 # Don't actually build.
 build: off
