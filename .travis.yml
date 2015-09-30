@@ -13,8 +13,9 @@ install:
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
   - nvm install 0.10.40
-  - node --version
   - npm install
+  - node --version
+  - meteor --version
 
 script:
   - node make.js test.cover
