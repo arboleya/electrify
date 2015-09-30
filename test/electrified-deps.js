@@ -1,5 +1,7 @@
 describe('[electrify] .electrified dependencies', function(){
 
+  this.timeout(60 * 60 * 1000); // 60mins
+
   var _ = require('lodash');
   var fs = require('fs');
   var path = require('path');
@@ -10,11 +12,9 @@ describe('[electrify] .electrified dependencies', function(){
 
   var stdio_config = 'inherit';
 
-  var meteor_bin = 'meteor' + (process.platform == 'win32' ? '.bat' : '') ;
+  var meteor_bin = 'meteor' + (process.platform == 'win32' ? '.bat' : '');
   
   var Electrify = require('../lib');
-
-  this.timeout(5 * 60 * 1000); // 5mins
 
   var tests_dir  = path.join(require('os').tmpdir(), 'electrify-tests');
 
@@ -69,8 +69,6 @@ describe('[electrify] .electrified dependencies', function(){
 
   it('should run & terminate the app', function(done) {
 
-    this.timeout(1 * 60 * 1000); // 1mins
-
     electrify.app.run(function(){
       // sets a previous version already published to ensure its being
       // installed at least
@@ -88,8 +86,6 @@ describe('[electrify] .electrified dependencies', function(){
   });
 
   it('should ensure .electrified dependencies', function(done){ 
-
-    this.timeout(1 * 60 * 1000); // 1mins
 
     process.env.DEVELECTRIFY = false;
     electrify = Electrify(meteor_app_dir, {});

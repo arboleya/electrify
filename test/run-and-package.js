@@ -1,6 +1,6 @@
 describe('[electrify] run and package', function(){
   
-  this.timeout(5 * 60 * 1000); // 5mins
+  this.timeout(60 * 60 * 1000); // 60mins
   
   var fs = require('fs');
   var path = require('path');
@@ -33,8 +33,6 @@ describe('[electrify] run and package', function(){
     stdio_config = 'inherit';
 
     Electrify = require('../lib');
-
-    this.timeout(5 * 60 * 1000); // 5mins
 
     process.env.DEVELECTRIFY = true;
 
@@ -96,7 +94,6 @@ describe('[electrify] run and package', function(){
 
 
   it('should run & terminate the app', function(done) {
-    this.timeout(5 * 60 * 1000); // 1mins
     electrify.app.run(function(){
       electrify.app.terminate();
       setTimeout(done, 2500);
@@ -105,7 +102,6 @@ describe('[electrify] run and package', function(){
 
 
   it('should package the app', function(done){
-    this.timeout(5 * 60 * 1000); // 5mins
     electrify.app.package(function(){
       // give some time for the disk to refresh its state
       setTimeout(function(){
