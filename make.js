@@ -180,7 +180,7 @@ target['test.cover.send'] = function() {
 
   target['test.cover'](function(){
     
-    var lcov = fs.readFileSync(path.join('coverage', 'lcov.info'));
+    var lcov = fs.readFileSync(path.join('coverage', 'lcov.info'), 'utf-8');
     lcov = lcov.replace(/^.+electrify(\\|\/)lib/m, 'lib');
 
     var node_mods = path.join(
