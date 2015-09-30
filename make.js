@@ -202,9 +202,9 @@ target['test.cover.send'] = function() {
       else {
         json.repo_token = repo_token;
         client.postJson(json);
+        console.log('coverage sent to codeclimate');
       }
     });
-    console.log('coverage sent to codeclimate');
   });
 };
 
