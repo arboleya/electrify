@@ -7,5 +7,9 @@ os:
 node_js:
   - 0.10.40
 
+install:
+  - npm install
+  - curl https://install.meteor.com | /bin/sh
+
 script:
   - node make.js test.cover
