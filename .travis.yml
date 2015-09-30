@@ -1,4 +1,5 @@
-language: node_js
+language:
+  - node_js
 
 os:
   - linux
@@ -8,12 +9,12 @@ node_js:
   - 0.10.40
 
 install:
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install 0.10.40
+  - node --version
   - npm install
-  - npm install -g n
-  - n 0.10.4
-  - curl https://install.meteor.com | /bin/sh
-  - which meteor
-  - node -v
 
 script:
   - node make.js test.cover
