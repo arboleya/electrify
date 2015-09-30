@@ -14,6 +14,7 @@ install:
   - source ~/.nvm/nvm.sh
   - nvm install 0.10.40
   - npm install
+  - curl https://install.meteor.com | /bin/sh
   - node --version
   - meteor --version
 
