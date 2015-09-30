@@ -173,6 +173,41 @@ target['test.cover.preview'] = function(){
   });
 };
 
+target['test.cover.send'] = function() {
+  var repo_token = process.env.CODECLIMATE_REPO_TOKEN;
+
+  if(repo_token === undefined || repo_token.trim() === '') {
+    console.error('No CODECLIMATE_REPO_TOKEN found.');
+    process.exit(1);
+  }
+
+  target.test_cover(function(){
+    
+    var lcov = fs.readFileSync(path.join('coverage', 'lcov.info'));
+    lcov = lcov.replace(/^.+electrify(\\|\/)lib/m, 'lib');
+
+    var node_mods = path.join(
+      __dirname,
+      'node_modules',
+      'codeclimate-test-reporter'
+    );
+
+    var Formatter = require(path.join(node_mods, 'formatter'));
+    var client    = require(path.join(node_mods, 'http_client'));
+
+    var formatter = new Formatter();
+    formatter.format(lcov, function(err, json) {
+      if (err)
+        console.error("A problem occurred parsing the lcov data", err);
+      else {
+        json.repo_token = repo_token;
+        client.postJson(json);
+      }
+    });
+    console.log('coverage sent to codeclimate');
+  });
+};
+
 
 target['deps.check'] = function(){
   spawn(node_bin, [NPMCHECK], {

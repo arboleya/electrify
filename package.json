@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "chokidar": "^1.1.0",
+    "codeclimate-test-reporter": "^0.1.1",
     "express": "^4.13.3",
     "express-tgz": "0.0.3",
     "istanbul": "^0.3.20",

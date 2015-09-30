@@ -1,3 +1,8 @@
+env:
+  global:
+    # CODECLIMATE_REPO_TOKEN
+    - secure: "BmnT72GEFvckZxySwaTsIDBXyp34xNjAMyNoLQJLNRLl6pEFYVfEGnvvZKXe7RXPFh8YYBHXVGNxAiDCMqCEHWw6OKvmH3+U8lVWhpox5iQhYG8Ayj5A7N+zZN8xBc7h5H7kp9LAVYE5sgnDQStZXe1ysAoc0W8ZCHN3CoF9AurDFiS5U68wtzaPnsPTzaZrdNDgBW7mnbFUZBHfgRaSlMIslvtWorwjyhcoUyvUmqVU9TC4bqs7FYjn3v0T3Qw9DTat0PT53WZQytKXKdaZskk491n585/FnrQrUv0WETzhDoaMbE7CekLObtxc9eb3AT1BC9erPzcKq4bdilFnNNL6CxDBbTbmgBqMQWXck0/x3McDD++aX0xpO0j1S6L6b5dfWhj16PlXwnVPVFuP7Iin9a71twLuyHi069EkAneoxBZDENWI2ewbhzn0jYVSiT/ClDMc7Z0IIjf30yvwQJLLWuXg5jbQhUzMP6VLz13EBgLq8X51f1R6u2qOdlM5vryypxprGpx9YGZ4tuC3IiMtDAPQwON73oMVuC0vvCTN/S1+auJ4PkVsDkI2MTQNyfT0yBCnjo6Ec9fYjVTp6G3gEFrTnPDTToQ26nqbj2IJSlgAjZTklv9ZioZmRUe/vFX0codEtuhFChUFBGalEPV0lb4V559Wup+YMCTAQKo="
+
 os:
   - linux
   - osx
@@ -14,4 +19,4 @@ install:
   - meteor --version
 
 script:
-  - node make.js test.cover
+  - node make.js test.cover.send
