@@ -181,7 +181,7 @@ target['test.cover.send'] = function() {
   target['test.cover'](function(){
     // reads lcov data
     var lcov_path   = path.join(__dirname, 'coverage', 'lcov.info');
-    var lcov        = fs.readFileSync(lcov_path, 'utf-8')
+    var lcov        = fs.readFileSync(lcov_path, 'utf-8');
 
     var node_mods = path.join(
       __dirname,
