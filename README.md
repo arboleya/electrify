@@ -105,10 +105,10 @@ app.on('ready', function() {
   window = new browser({
     width: 1200,
     height: 900,
-    'node-integration': false                  // <~ node-integration = off
+    'node-integration': false                 //~> node integration off
   });
   
-  electrify.start(function(meteor_root_url) {  // <~ electrify:start
+  electrify.start(function(meteor_root_url) { //~> electrify:start
     window.loadUrl(meteor_root_url);
   });
 
@@ -119,7 +119,7 @@ app.on('window-all-closed', function() {
 });
 
 app.on('will-quit', function(event) {
-  electrify.shutdown(app, event);              // <~ electrify:stop
+  electrify.stop();                           //~> electrify:stop
 });
 ````
 
