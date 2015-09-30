@@ -183,9 +183,6 @@ target['test.cover.send'] = function() {
     var lcov_path   = path.join(__dirname, 'coverage', 'lcov.info');
     var lcov        = fs.readFileSync(lcov_path, 'utf-8')
 
-    // fix filepaths
-    lcov = lcov.replace(/^.+electrify(\\|\/)lib/m, 'lib');
-
     var node_mods = path.join(
       __dirname,
       'node_modules',
