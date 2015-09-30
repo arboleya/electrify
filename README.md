@@ -25,12 +25,12 @@ interactive shell:
 meteor shell
 ````
 
-Once inside it, execute the `electrify` command:
+Once inside it, execute the `Electrify.app.package()` command:
 
 ````shell
 # NOTE: if you started the server with `meteor --settings file.json`, those
-# settings # will be automatically available on the packaged app
-electrify
+# settings will be automatically available on the packaged app
+Electrify.app.package();
 ````
 
 
@@ -44,11 +44,11 @@ required in order for this command to run, but the Meteor server can be down.
 ````shell
 npm install -g electrify
 cd /you/meteor/project
-electrify
+electrify package
 
 # NOTE: Meteor's settings is not available when using NPM to package your app,
 # so if your app makes use of `meteor --settings`, you must set it like:
-electrify --settings production.json
+electrify package --settings production.json
 ````
 
 ----
@@ -129,32 +129,15 @@ I'd also like to thank [Hems](https://github.com/hems) for the first insights.
 requires absolute no learning curve and is heavily tested against Osx, Linux
 and Windows.
 
-# Problems?
+## Problems?
 
 This is very young and active software, so make sure your are always up to date
 before opening an issue.
 
-Follow the released fixes through the [History.md](History.md) file.
+Follow the released fixes through the [HYSTORY.md](HYSTORY.md) file.
 
 ## License
 
 The MIT License (MIT)
 
 Copyright (c) 2015 Anderson Arboleya
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
