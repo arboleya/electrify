@@ -10,6 +10,7 @@ install:
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
   - nvm install 0.10.40
+  - nvm use 0.10.40
   - npm install
   - sudo curl https://install.meteor.com | /bin/sh
   - node --version
