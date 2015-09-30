@@ -159,7 +159,7 @@ target['test.cover'] = function(done){
 };
 
 target['test.cover.preview'] = function(){
-  target.test_cover(function(){
+  target['test.cover'](function(){
     if(!fs.existsSync('./coverage/lcov-report')) return;
     spawn('python', ['-m', 'SimpleHTTPServer', '8080'], {
       cwd: './coverage/lcov-report',
@@ -178,7 +178,7 @@ target['test.cover.send'] = function() {
     process.exit(1);
   }
 
-  target.test_cover(function(){
+  target['test.cover'](function(){
     
     var lcov = fs.readFileSync(path.join('coverage', 'lcov.info'));
     lcov = lcov.replace(/^.+electrify(\\|\/)lib/m, 'lib');
@@ -210,18 +210,12 @@ target['deps.check'] = function(){
   spawn(node_bin, [NPMCHECK], {
     stdio: 'inherit'
   });
-  // npmcheck({}).then(function(){
-  //   console.log(arguments);
-  // });
 };
 
 target['deps.upgrade'] = function(){
   spawn(node_bin, [NPMCHECK, '-u'], {
     stdio: 'inherit'
   });
-  // npmcheck({update: true}).then(function(){
-  //   console.log(arguments);
-  // });
 };
 
 target.publish = function(){
