@@ -154,10 +154,7 @@ target['test.cover'] = function(done){
     stdio: 'inherit',
     env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
   }).on('exit', function(){
-    if(done)
-      done();
-    else
-      process.exit();
+    if(done) done();
   });
 };
 
