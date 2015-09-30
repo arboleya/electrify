@@ -148,7 +148,7 @@ target.test = function() {
     });
 };
 
-target.test_cover = function(done){
+target['test.cover'] = function(done){
   target.tar();
   spawn(node_bin, [ISTANBUL, 'cover', _MOCHA], {
     stdio: 'inherit',
@@ -158,7 +158,7 @@ target.test_cover = function(done){
   });
 };
 
-target.test_cover_preview = function(){
+target['test.cover.preview'] = function(){
   target.test_cover(function(){
     if(!fs.existsSync('./coverage/lcov-report')) return;
     spawn('python', ['-m', 'SimpleHTTPServer', '8080'], {
