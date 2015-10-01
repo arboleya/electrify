@@ -1,7 +1,4 @@
-[![Windows](https://travis-ci.org/arboleya/electrify.svg)](https://travis-ci.org/arboleya/electrify)
-[![Windows](https://ci.appveyor.com/api/projects/status/mgcmv8cxiu5ahr6x?svg=true)](https://ci.appveyor.com/project/arboleya/electrify)
-
-# Electrify
+# Electrify [![osx/linux](https://travis-ci.org/arboleya/electrify.svg)](https://travis-ci.org/arboleya/electrify) [![windows](https://ci.appveyor.com/api/projects/status/mgcmv8cxiu5ahr6x?svg=true)](https://ci.appveyor.com/project/arboleya/electrify) [![Join the chat at https://gitter.im/arboleya/electrify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/arboleya/electrify)
 
 Easily package your Meteor apps with Electron, and *butter*.
 
