@@ -127,9 +127,9 @@ When upgrading to newer versions, it's **important** to know that:
 ### ~> templates
 
 Once these files exists on disk, they *will not* be overwritten.
- * `.electrify\index.js`
- * `.electrify\package.json`
- * `.electrify\.gitignore.json`
+ * `.electrify/index.js`
+ * `.electrify/package.json`
+ * `.electrify/.gitignore.json`
 
 ### ~> api
 
@@ -140,7 +140,7 @@ adjustments will have to be made manually, following the example described
 ### ~> version matching
 
 Always keep the same electrify version in your Meteor, and inside the
-`.electyrify` folder, *as per specified in `.electrified/package.json` file*.
+`.electrify` folder, *as per specified in `.electrify/package.json` file*.
 
 And if you prefer using Electrify globally with `npm install -g electrify`,
 remember to keep it in the right version as well.
