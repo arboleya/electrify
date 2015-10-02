@@ -1,8 +1,8 @@
-1.3.0 / 2015-09-14
+1.3.0 / 2015-10-02
 ===================
-  * Refactoring everything
+  * Revamping project, re-writting everything
+  * Starting initial architecture for plugins
   * Adding tests
-  * Starting initial tests with plugins
 
 1.2.2 / 2015-09-14
 ===================
