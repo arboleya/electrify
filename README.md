@@ -1,4 +1,5 @@
-# Electrify [![osx/linux](https://travis-ci.org/arboleya/electrify.svg)](https://travis-ci.org/arboleya/electrify) [![windows](https://ci.appveyor.com/api/projects/status/mgcmv8cxiu5ahr6x?svg=true)](https://ci.appveyor.com/project/arboleya/electrify) [![Join the chat at https://gitter.im/arboleya/electrify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/arboleya/electrify)
+# Electrify [![windows](https://img.shields.io/appveyor/ci/arboleya/electrify.svg?label=windows)](https://ci.appveyor.com/project/arboleya/electrify) [![travis](https://img.shields.io/travis/arboleya/electrify/master.svg?label=osx/linux)](https://travis-ci.org/arboleya/electrify) [![coverage](https://img.shields.io/codeclimate/coverage/github/arboleya/electrify.svg)](https://codeclimate.com/github/arboleya/electrify/coverage) [![join the chat at https://gitter.im/arboleya/electrify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/arboleya/electrify)
+
 
 Easily package your Meteor apps with Electron, and *butter*.
 
@@ -99,13 +100,12 @@ var window    = null;
 
 app.on('ready', function() {
 
-  window = new browser({
-    width: 1200,
-    height: 900,
-    'node-integration': false                 //~> node integration off
-  });
-  
   electrify.start(function(meteor_root_url) { //~> electrify:start
+    window = new browser({
+      width: 1200,
+      height: 900,
+      'node-integration': false                 //~> node integration off
+    });
     window.loadUrl(meteor_root_url);
   });
 
