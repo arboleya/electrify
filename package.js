@@ -1,6 +1,8 @@
+var VERSION = '1.3.0';
+
 Package.describe({
   name: 'arboleya:electrify',
-  version: require('./package.json').version,
+  version: VERSION,
   summary: 'Package your Meteor apps with Electron, and butter.',
   git: 'https://github.com/arboleya/electrify',
   documentation: 'README.md'
@@ -16,8 +18,7 @@ if(process.env.DEVELECTRIFY == 'true') {
   version_path = 'http://localhost:7777/' + sha;
 }
 else
-  version_path = require('./package.json').version;
-
+  version_path = VERSION;
 
 Npm.depends({
   'electrify': version_path
