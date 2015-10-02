@@ -1,3 +1,7 @@
+1.3.1 / 2015-10-02
+===================
+  * Fixing SyntaxError in default template (index.js)
+
 1.3.0 / 2015-10-02
 ===================
   * Revamping project, re-writting everything

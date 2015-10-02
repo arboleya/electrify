@@ -1,6 +1,6 @@
 {
   "name": "electrify",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "description": "Package your Meteor apps with Electron, and butter.",
