@@ -52,10 +52,8 @@ if(!Electrify.env.app.is_packaged && !Electrify.env.is_running_tests){
       // save the current ppid for next comparison
       fs.writeFileSync(ppid_path, curr_ppid);
 
-      console.log('VAI FELA!');
       // start everything for development
       Electrify.app.run();
-      console.log('FOI!');
     }
   });
 }
