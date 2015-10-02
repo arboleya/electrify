@@ -205,6 +205,41 @@ target['test.cover.send'] = function() {
   });
 };
 
+target['update.version'] = function(version) {
+  var filepath, content, replacement;
+
+  // package.json
+  replacement  = '"version": "'+ version[0];
+  filepath     = path.join(__dirname, 'package.json');
+  content      = fs.readFileSync(filepath, 'utf-8');
+  content      = content.replace(/"version":\s*"[0-9\.]+/i, replacement);
+  fs.writeFileSync(filepath, content);
+
+  // package.json
+  replacement  = 'var VERSION = \''+ version[0];
+  filepath     = path.join(__dirname, 'package.js');
+  content      = fs.readFileSync(filepath, 'utf-8');
+  content      = content.replace(/var VERSION = '[0-9\.]+/i, replacement);
+  fs.writeFileSync(filepath, content);
+
+  // lib/env.js
+  replacement  = 'this.version = \''+ version[0];
+  filepath     = path.join(__dirname, 'lib', 'env.js');
+  content      = fs.readFileSync(filepath, 'utf-8');
+  content      = content.replace(/this.version = '[0-9\.]+/i, replacement);
+  fs.writeFileSync(filepath, content);
+
+  //HISTORY.md
+  replacement  = 'this.version = \''+ version[0];
+  filepath     = path.join(__dirname, 'HISTORY.md');
+  content      = fs.readFileSync(filepath, 'utf-8');
+  fs.writeFileSync(filepath, [
+    version[0] + ' / {{DATE..}}',
+    '===================',
+    '  * {{TOPIC...}}\n',
+    content
+  ].join('\n'));
+};
 
 target['deps.check'] = function(){
   spawn(node_bin, [NPMCHECK], {
