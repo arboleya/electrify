@@ -1,3 +1,7 @@
+1.3.3 / 2015-10-02
+===================
+  * Fixing `package.json` version evaluation for .electrify app
+
 1.3.2 / 2015-10-02
 ===================
   * Adding target to maintain all versions of meteor and npm packages under
