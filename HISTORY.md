@@ -1,3 +1,7 @@
+1.3.4 / 2015-10-02
+===================
+  * Fixing log level check
+
 1.3.3 / 2015-10-02
 ===================
   * Fixing `package.json` version evaluation for .electrify app
@@ -27,7 +31,6 @@
 ===================
   * Fixing Meteor's setting format
 
-  
 1.2.0 / 2015-09-09
 ===================
   * Fixing version checkup
