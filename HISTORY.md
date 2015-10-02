@@ -1,3 +1,8 @@
+1.3.2 / 2015-10-02
+===================
+  * Adding target to maintain all versions of meteor and npm packages under
+  the same rule
+
 1.3.1 / 2015-10-02
 ===================
   * Fixing SyntaxError in default template (index.js)
