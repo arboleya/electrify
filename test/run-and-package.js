@@ -111,7 +111,21 @@ describe('[electrify] run and package', function(){
     });
   });
 
-  it('should start / stop the app', function(done){
+
+  it('should start / stop the app, in development', function(done){
+
+    var meteor_app    = path.join(meteor_app_dir, '.electrify');
+    var new_electrify = Electrify(meteor_app, {});
+
+    new_electrify.start(function() {
+      new_electrify.stop();
+      setTimeout(done, 2500);
+    });
+
+  });
+
+
+  it('should start / stop the app, in production', function(done){
 
     var entry_point = shell.find(pkg_app_dir).filter(function(file) {
       return /app(\\|\/)index\.js$/m.test(file);
