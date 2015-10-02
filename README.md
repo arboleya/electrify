@@ -120,27 +120,46 @@ app.on('will-quit', function(event) {
 });
 ````
 
-## Voilà
+## Upgrading
 
-I started this project after being unable to accomplhish the same things using:
+When upgrading to newer versions, it's **important** to know that:
 
- * [Electrometeor](https://github.com/sircharleswatson/Electrometeor) 
- * [Meteor-Electron](https://github.com/jrudio/meteor-electron)
+### ~> templates
 
-However I'd like to thank these authors for all the inspiration.
+Once these files exists on disk, they *will not* be overwritten.
+ * `.electrify\index.js`
+ * `.electrify\package.json`
+ * `.electrify\.gitignore.json`
 
-I'd also like to thank [Hems](https://github.com/hems) for the first insights.
+### ~> api
 
-> This package differs from `Electrometeor` and `meteor-electron` in the way it
-requires absolute no learning curve and is heavily tested against Osx, Linux
-and Windows.
+As these files above is never overwritten, in case of any API change the needed
+adjustments will have to be made manually, following the example described
+[above](#customizing).
+
+### ~> version matching
+
+Always keep the same electrify version in your Meteor, and inside the
+`.electyrify` folder, *as per specified in `.electrified/package.json` file*.
+
+And if you prefer using Electrify globally with `npm install -g electrify`,
+remember to keep it in the right version as well.
+
+## Questions?
+
+Do not open issues, use the chat channel instead.
+
+[![Join the chat at https://gitter.im/arboleya/electrify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/arboleya/electrify)
 
 ## Problems?
 
 This is very young and active software, so make sure your are always up to date
-before opening an issue.
+before opening an issue. Follow the released fixes through the
+[HYSTORY.md](HYSTORY.md) file.
 
-Follow the released fixes through the [HYSTORY.md](HYSTORY.md) file.
+If you find any problem, please open a meaningful issue describing in detail how
+to reproduce the problem, which platform/os/arch type you're using, as well as
+the version of Meteor and Electrify, and any other info you may find usefull.
 
 ## License
 
