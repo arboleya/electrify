@@ -5,6 +5,7 @@ describe('[electrify] run and package', function(){
   var fs = require('fs');
   var path = require('path');
   var spawn = require('child_process').spawn;
+  var http  = require('http');
 
   var should = require('should');
   var shell  = require('shelljs');
@@ -25,6 +26,8 @@ describe('[electrify] run and package', function(){
   
   var electrify;
   var pkg_app_dir;
+
+  var start_stop;
 
   var meteor_bin = 'meteor' + (process.platform == 'win32' ? '.bat' : '');
 
@@ -125,7 +128,7 @@ describe('[electrify] run and package', function(){
   });
 
 
-  it('should start / stop the app, in production', function(done){
+  it('should start / stop the app, in production', start_stop = function(done){
 
     var entry_point = shell.find(pkg_app_dir).filter(function(file) {
       return /app(\\|\/)index\.js$/m.test(file);
@@ -134,10 +137,29 @@ describe('[electrify] run and package', function(){
     var base_dir = path.dirname(entry_point);
 
     var new_electrify  = Electrify(base_dir, {});
-    new_electrify.start(function(){
-      new_electrify.stop();
-      setTimeout(done, 2500);
-    });
+    new_electrify.start(function(meteor_url){
 
+      // validates if page is responding
+      http.get(meteor_url, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function(body) {
+
+          // give sometime before the final analysys, so next tests
+          // will have a good time on slow windows machines
+          setTimeout(function() {
+
+            // test if body has the meteor config object declared
+            /__meteor_runtime_config__/.test(body).should.be.ok();
+
+            new_electrify.stop();
+            done();
+          }, 2500);
+
+        });
+      });
+    });
   });
+
+  // repeats previous tests to assure boot / shutdown aren't broken
+  it('should start / stop the app TWICE, in production', start_stop);
 });
