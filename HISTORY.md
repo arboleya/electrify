@@ -1,3 +1,7 @@
+1.3.6 / 2015-10-06
+===================
+  * Unifying the moment when mongod.lock file is removed
+
 1.3.5 / 2015-10-06
 ===================
   * Properly handling mongodb.lock file, specially in winows where's not
