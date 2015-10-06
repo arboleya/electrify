@@ -1,3 +1,9 @@
+1.3.5 / 2015-10-06
+===================
+  * Properly handling mongodb.lock file, specially in winows where's not
+  possible to gracefully shutdown mongo
+  * Fixing meteor initialization on windows
+
 1.3.4 / 2015-10-02
 ===================
   * Fixing log level check
