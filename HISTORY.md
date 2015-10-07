@@ -1,3 +1,7 @@
+1.4.0 / 2015-10-07
+===================
+  * Improving plugins API
+
 1.3.6 / 2015-10-06
 ===================
   * Unifying the moment when mongod.lock file is removed
