@@ -14,7 +14,7 @@ install:
   - .\InstallMeteor.exe /passive
   # Restart
   - ps: Start-Sleep -s 5
-  - ps: Restart-Computer -Force
+  # - ps: Restart-Computer -Force
 
 # Post-install test scripts.
 test_script:
