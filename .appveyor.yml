@@ -4,10 +4,10 @@ environment:
 
 # Install scripts. (runs after repo cloning)
 install:
-  # install modules
-  - npm install
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
+  # install modules
+  - npm install
   # Download Meteor
   - ps: Start-FileDownload 'https://s3.amazonaws.com/meteor-windows/InstallMeteor.exe'
   # Install meteor
