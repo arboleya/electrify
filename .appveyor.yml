@@ -21,6 +21,7 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
+  - meteor --version
   # run tests
   - node make.js test.cover.send
 
