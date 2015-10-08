@@ -144,22 +144,47 @@ describe('[electrify] run and package', function(){
         res.setEncoding('utf8');
         res.on('data', function(body) {
 
+          // test if body has the meteor config object declared
+          /__meteor_runtime_config__/.test(body).should.be.ok();
+
+          new_electrify.stop();
+
           // give sometime before the final analysys, so next tests
           // will have a good time on slow windows machines
-          setTimeout(function() {
-
-            // test if body has the meteor config object declared
-            /__meteor_runtime_config__/.test(body).should.be.ok();
-
-            new_electrify.stop();
-            done();
-          }, 2500);
-
+          setTimeout(done, 2500);
         });
       });
     });
   });
 
-  // repeats previous tests to assure boot / shutdown aren't broken
-  it('should start / stop the app TWICE, in production', start_stop);
+  // this test is exactly the same as the above one, it's needed to assure
+  // subsequent startups
+  it('should start / stop the app, in production, AGAIN', start_stop = function(done){
+
+    var entry_point = shell.find(pkg_app_dir).filter(function(file) {
+      return /app(\\|\/)index\.js$/m.test(file);
+    });
+    
+    var base_dir = path.dirname(entry_point);
+
+    var new_electrify  = Electrify(base_dir, {});
+    new_electrify.start(function(meteor_url){
+
+      // validates if page is responding
+      http.get(meteor_url, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function(body) {
+
+          // test if body has the meteor config object declared
+          /__meteor_runtime_config__/.test(body).should.be.ok();
+
+          new_electrify.stop();
+
+          // give sometime before the final analysys, so next tests
+          // will have a good time on slow windows machines
+          setTimeout(done, 2500);
+        });
+      });
+    });
+  });
 });
