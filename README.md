@@ -7,10 +7,9 @@ Easily package your Meteor apps with Electron, and *butter*.
 ## TL;DR
 
 ````shell
-meteor create --example leaderboard
-cd leaderboard
-meteor add arboleya:electrify
-meteor
+npm install -g electrify
+cd /you/meteor/project
+electrify
 ````
 ## Compatibility
 
@@ -19,49 +18,20 @@ Works on all Meteor's supported [platforms](https://github.com/meteor/meteor/wik
 ## Installation
 
 ````shell
-meteor add arboleya:electrify
+npm install -g electrify
 ````
 
 ## Packaging
 
-### Meteor way
-
-Keep your `meteor` running, fire up a second terminal tab and enter Meteor's
-interactive shell:
-
 ````shell
-meteor shell
-````
-
-Once inside it, execute the `Electrify.app.package()` command:
-
-````shell
-# NOTE: if you started the server with `meteor --settings file.json`, those
-# settings will be automatically available on the packaged app
-Electrify.app.package();
-````
-
-
-Press enter.
-
-### NPM way
-
-Alternatively, you can do it with the `electrify` npm package -- Meteor is still
-required in order for this command to run, but the Meteor server can be down.
-
-````shell
-npm install -g electrify
 cd /you/meteor/project
 electrify package
 
-# NOTE: Meteor's settings is not available when using NPM to package your app,
-# so if your app makes use of `meteor --settings`, you must set it like:
-electrify package --settings production.json
+# NOTE: Pass on Meteor's settings `--settings`
+# electrify package --settings production.json
 ````
 
-----
-
-Both methods will output your `Electron` app inside `.electrify/.dist` folder.
+This will output your `Electron` app inside `.electrify/.dist` folder.
 
 > **NOTES**
 >
@@ -100,7 +70,7 @@ var window    = null;
 
 app.on('ready', function() {
 
-  electrify.start(function(meteor_root_url) { //~> electrify:start
+  electrify.start(function(meteor_root_url) {   //~> electrify:start
     window = new browser({
       width: 1200,
       height: 900,
@@ -116,7 +86,7 @@ app.on('window-all-closed', function() {
 });
 
 app.on('will-quit', function(event) {
-  electrify.stop();                           //~> electrify:stop
+  electrify.stop();                             //~> electrify:stop
 });
 ````
 
