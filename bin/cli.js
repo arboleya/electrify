@@ -37,7 +37,7 @@ program
 program.parse(process.argv);
 
 if(process.argv.length <= 2)
-  program.help();
+  electrify.app.run();
 
 function meteor_settings() {
   if(!program.settings) return {};
