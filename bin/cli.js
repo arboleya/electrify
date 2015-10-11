@@ -8,7 +8,7 @@ var electrify = require('../lib')(process.cwd(), meteor_settings());
 
 program
   .usage('[command] [options]')
-  .version(require('./package.json').version)
+  .version(require('../package.json').version)
   .on('--help', function(){
     console.log('  Examples:');
     console.log('');
