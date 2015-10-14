@@ -5,11 +5,6 @@ var fs        = require('fs');
 var program   = require('commander');
 var log       = console.log;
 
-function electrify() {
-  var input = program.input || process.cwd();
-  return require('../lib')(input, program.output, meteor_settings());
-}
-
 program
   .usage('[command] [options]')
   .version(require('../package.json').version)
@@ -41,14 +36,14 @@ program
 
 program
   .command('bundle')
-  .description('bundle everything as an electron project, at `.electrify` dir')
+  .description('bundle everything as an electron project at `.electrify` dir')
   .action(function(){
     electrify().app.bundle(/* server_url */);
   });
 
 program
   .command('package')
-  .description('bundle and package app, at `output` dir')
+  .description('bundle and package app to `--output` dir')
   .action(function(){
     electrify().app.package(/* server_url */);
   });
@@ -57,6 +52,15 @@ program.parse(process.argv);
 
 if(process.argv.length <= 2)
   electrify().app.run();
+
+
+
+// helpers
+
+function electrify() {
+  var input = program.input || process.cwd();
+  return require('../lib')(input, program.output, meteor_settings());
+}
 
 function meteor_settings() {
   if(!program.settings) return {};
