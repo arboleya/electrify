@@ -13,9 +13,9 @@ program
     log('    ' + [
       'electrify',
       'electrify package',
-      'electrify package --output /output/path',
-      'electrify package --output /output/path -settings file.json',
-      'electrify package --input /my/app --output /output/dir -s dev.json'
+      'electrify package --output /dist/dir',
+      'electrify package --output /dist/dir -settings file.json',
+      'electrify package --input /app/dir --output /dist/dir -settings dev.json'
     ].join('\n    ') + '\n');
   });
 
