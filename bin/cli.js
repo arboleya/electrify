@@ -5,6 +5,8 @@ var fs        = require('fs');
 var program   = require('commander');
 var log       = console.log;
 
+var pack = 'electrify package';
+
 program
   .usage('[command] [options]')
   .version(require('../package.json').version)
@@ -12,17 +14,19 @@ program
     log('  Examples:\n');
     log('    ' + [
       'electrify',
-      'electrify package',
-      'electrify package --output /dist/dir',
-      'electrify package --output /dist/dir -settings file.json',
-      'electrify package --input /app/dir --output /dist/dir -settings dev.json'
+      pack,
+      pack +' --output /dist/dir',
+      pack +' --output /dist/dir -settings file.json',
+      pack +' --input /app/dir --output /dist/dir --settings dev.json',
+      pack +' --input /app/dir --output /dist/dir --settings dev.json --plugins electrify-es'
     ].join('\n    ') + '\n');
   });
 
 program
   .option('--settings <path>', 'json file with meteor\'s settings')
-  .option('--input    <path>', 'meteor app dir (default = .)')
-  .option('--output   <path>', 'output dir (default = .electrify/.dist)');
+  .option('--input   <path>', 'meteor app dir (default = .)')
+  .option('--output  <path>', 'output dir (default = .electrify/.dist)')
+  .option('--plugins  <a,b>', 'comma separated list of plugins to use');
   // TODO: enable building of client only
   // .option('--server <url>', 'if informed, build client only');
 
@@ -58,7 +62,29 @@ if(process.argv.length <= 2)
 // helpers
 
 function electrify() {
-  var input = program.input || process.cwd();
+  var input, error_msg, meteor_dir;
+
+  // validates input dir (app-root folder)
+  if(program.input && !fs.existsSync(program.input)) {
+    error_msg = 'Input folder doesn\'t exist: ' + program.input;
+    throw new Error(error_msg);
+  }
+  
+  input = program.input || process.cwd();
+
+  // validates meteor project
+  meteor_dir = path.join(input, '.meteor');
+
+  if(!fs.existsSync(meteor_dir)) {
+    error_msg = 'Not a meteor app: ' + meteor_dir;
+    throw new Error(error_msg);
+  }
+
+  if(program.output && !fs.existsSync(program.output)) {
+    error_msg = 'Output folder doesn\'t exist: ' + program.output;
+    throw new Error(error_msg);
+  }
+
   return require('../lib')(input, program.output, meteor_settings());
 }
 
