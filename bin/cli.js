@@ -5,31 +5,32 @@ var fs        = require('fs');
 var program   = require('commander');
 var log       = console.log;
 
-var pack = 'electrify package';
-
 program
   .usage('[command] [options]')
   .version(require('../package.json').version)
+  .on('--version', function(){
+    return require('../package.json').version;
+  })
   .on('--help', function(){
     log('  Examples:\n');
     log('    ' + [
+      '# `electrify` without a command defaults to `electrify run`',
+      '',
       'electrify',
-      pack,
-      pack +' --output /dist/dir',
-      pack +' --output /dist/dir -settings file.json',
-      pack +' --input /app/dir --output /dist/dir --settings dev.json',
-      pack +' --input /app/dir --output /dist/dir --settings dev.json --plugins electrify-es'
+      'electrify run',
+      'electrify package',
+      'electrify package -o /dist/dir',
+      'electrify package -o /dist/dir -s file.json',
+      'electrify package -i /app/dir -o /dist/dir -s dev.json',
+      'electrify package -i /app/dir -o /dist/dir -s dev.json -c config.json'
     ].join('\n    ') + '\n');
   });
 
 program
-  .option('--settings <path>', 'json file with meteor\'s settings')
-  .option('--input   <path>', 'meteor app dir (default = .)')
-  .option('--output  <path>', 'output dir (default = .electrify/.dist)')
-  .option('--plugins  <a,b>', 'comma separated list of plugins to use');
-  // TODO: enable building of client only
-  // .option('--server <url>', 'if informed, build client only');
-
+  .option('-i, --input    <path>', 'meteor app dir (default=.)')
+  .option('-o, --output   <path>', 'output dir (default=.electrify/.dist)')
+  .option('-c, --config   <path>', 'electrify config file (default=.electrify/electrify.json)')
+  .option('-s, --settings <path>', 'meteor settings file (optional, default=null)');
 
 program
   .command('run')
@@ -47,20 +48,21 @@ program
 
 program
   .command('package')
-  .description('bundle and package app to `--output` dir')
+  .description('bundle and package `.electrify` electron app to `--output` dir')
   .action(function(){
     electrify().app.package(/* server_url */);
   });
 
 program.parse(process.argv);
 
-if(process.argv.length <= 2)
+
+// default command = run
+var cmd = process.argv[2];
+if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd))
   electrify().app.run();
 
 
-
 // helpers
-
 function electrify() {
   var input, error_msg, meteor_dir;
 
@@ -85,7 +87,8 @@ function electrify() {
     throw new Error(error_msg);
   }
 
-  return require('../lib')(input, program.output, meteor_settings());
+  var elec_mod = require('../lib');
+  return elec_mod(input, program.output, program.config, meteor_settings());
 }
 
 function meteor_settings() {
