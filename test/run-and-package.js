@@ -49,7 +49,7 @@ describe('[electrify] run and package', function(){
     packages_dir   = path.join(meteor_app_dir, 'packages');
     electrify_dir  = path.join(packages_dir, 'arboleya-electrify');
     
-    electrify  = Electrify(meteor_app_dir, {});
+    electrify  = Electrify(meteor_app_dir);
     
     var name = 'my-electrified-app';
     var plat = electrify.env.sys.platform;
@@ -118,7 +118,7 @@ describe('[electrify] run and package', function(){
   it('should start / stop the app, in development', function(done){
 
     var meteor_app    = path.join(meteor_app_dir, '.electrify');
-    var new_electrify = Electrify(meteor_app, {});
+    var new_electrify = Electrify(meteor_app);
 
     new_electrify.start(function() {
       new_electrify.stop();
@@ -136,7 +136,7 @@ describe('[electrify] run and package', function(){
     
     var base_dir = path.dirname(entry_point);
 
-    var new_electrify  = Electrify(base_dir, {});
+    var new_electrify  = Electrify(base_dir);
     new_electrify.start(function(meteor_url){
 
       // validates if page is responding
@@ -167,7 +167,7 @@ describe('[electrify] run and package', function(){
     
     var base_dir = path.dirname(entry_point);
 
-    var new_electrify  = Electrify(base_dir, {});
+    var new_electrify  = Electrify(base_dir);
     new_electrify.start(function(meteor_url){
 
       // validates if page is responding
