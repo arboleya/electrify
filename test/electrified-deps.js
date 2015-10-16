@@ -33,7 +33,7 @@ describe('[electrify] .electrified dependencies', function(){
     console.log('preparing test environment');
 
     process.env.DEVELECTRIFY = true;
-    electrify = Electrify(meteor_app_dir, {});
+    electrify = Electrify(meteor_app_dir);
 
     // reset tests dir
     shell.rm('-rf', npm_dir);
@@ -67,31 +67,23 @@ describe('[electrify] .electrified dependencies', function(){
     });
   });
 
-  it('should run & terminate the app', function(done) {
-
-    electrify.app.run(function(){
-      // sets a previous version already published to ensure its being
-      // installed at least
-      var pkg_path = path.join(electrify_dir, 'package.json');
-      var pkg      = require(pkg_path);
-
-      pkg.dependencies.electrify = '1.2.2';
-      fs.writeFileSync(pkg_path, JSON.stringify(pkg, null, 2));
-
-      // terminate the app
-      electrify.app.terminate();
-      setTimeout(done, 5000);
-    });
-
-  });
-
-  it('should ensure .electrified dependencies', function(done){ 
+  it('should ensure .electrify dependencies', function(done) {
 
     process.env.DEVELECTRIFY = false;
-    electrify = Electrify(meteor_app_dir, {});
+    electrify = Electrify(meteor_app_dir);
+
+    electrify.scaffold.prepare();
 
     var node_mods           = path.join(electrify_dir, 'node_modules');
     var node_mods_electrify = path.join(node_mods, 'electrify');
+
+    // sets a previous version already published to ensure its being
+    // installed at least
+    var pkg_path = path.join(electrify_dir, 'package.json');
+    var pkg      = require(pkg_path);
+
+    pkg.dependencies.electrify = '1.2.2';
+    fs.writeFileSync(pkg_path, JSON.stringify(pkg, null, 2));
 
     electrify.app.ensure_deps(function(){
       should(fs.existsSync(node_mods_electrify)).be.ok();
