@@ -14,7 +14,8 @@ program
   .on('--help', function(){
     log('  Examples:\n');
     log('    ' + [
-      '# `electrify` without a command defaults to `electrify run`',
+      '# cd into meteor dir first',
+      'cd /you/meteor/app',
       '',
       'electrify',
       'electrify run',
@@ -27,28 +28,28 @@ program
   });
 
 program
-  .option('-i, --input    <path>', 'meteor app dir (default=.)')
-  .option('-o, --output   <path>', 'output dir (default=.electrify/.dist)')
-  .option('-c, --config   <path>', 'electrify config file (default=.electrify/electrify.json)')
-  .option('-s, --settings <path>', 'meteor settings file (optional, default=null)');
+  .option('-i, --input    <path>', 'meteor app dir         | default = .')
+  .option('-o, --output   <path>', 'output dir             | default = .electrify/.dist')
+  .option('-c, --config   <path>', 'electrify config file  | default = .electrify/electrify.json')
+  .option('-s, --settings <path>', 'meteor settings file   | default = null (optional)');
 
 program
   .command('run')
-  .description('start meteor app within electrify context')
+  .description('(default) start meteor app within electrify context, used for dev')
   .action(function(){
     electrify().app.run();
   });
 
 program
   .command('bundle')
-  .description('bundle everything as an electron project at `.electrify` dir')
+  .description('bundle meteor app into an electron project at `.electrify` dir')
   .action(function(){
     electrify().app.bundle(/* server_url */);
   });
 
 program
   .command('package')
-  .description('bundle and package `.electrify` electron app to `--output` dir')
+  .description('all in one, bundle + package `.electrify` electron app to `--output` dir')
   .action(function(){
     electrify().app.package(/* server_url */);
   });
