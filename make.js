@@ -6,7 +6,6 @@ var spawn   = require('child_process').spawn;
 
 var _        = require('lodash');
 var shell    = require('shelljs');
-var chokidar = require('chokidar');
 
 var meteor_bin = process.platform == 'win32' ? 'meteor.bat' : 'meteor';
 var node_bin = process.platform == 'win32' ? 'node.exe' : 'node';

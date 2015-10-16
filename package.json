@@ -12,7 +12,6 @@
     "shelljs": "^0.5.3"
   },
   "devDependencies": {
-    "chokidar": "^1.1.0",
     "codeclimate-test-reporter": "^0.1.1",
     "istanbul": "^0.3.20",
     "mocha": "^2.3.3",
