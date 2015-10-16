@@ -5,6 +5,10 @@
 
   "globals": {
     "Electrify": true,
+    "Npm": true,
+    "Meteor": true,
+    "Package": true,
+
 
     "target": true,
 
