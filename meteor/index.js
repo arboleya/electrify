@@ -56,10 +56,6 @@ function connect(port){
     var packet = JSON.parse(e.data);
     var done;
 
-    console.log('================= receivved');
-    console.log(packet);
-    console.log('================= receivved');
-
     if((done = callbacks[packet.handshake])) {
       callbacks[packet.handshake] = null;
       delete callbacks[packet.handshake];
