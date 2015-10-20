@@ -65,12 +65,12 @@ if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd))
 
 // helpers
 function electrify() {
-  var input, error_msg, meteor_dir;
+  var input, meteor_dir;
 
   // validates input dir (app-root folder)
   if(program.input && !fs.existsSync(program.input)) {
-    error_msg = 'Input folder doesn\'t exist: ' + program.input;
-    throw new Error(error_msg);
+    console.error('input folder doesn\'t exist\n  ' + program.input);
+    process.exit();
   }
   
   input = program.input || process.cwd();
@@ -79,17 +79,17 @@ function electrify() {
   meteor_dir = path.join(input, '.meteor');
 
   if(!fs.existsSync(meteor_dir)) {
-    error_msg = 'Not a meteor app: ' + meteor_dir;
-    throw new Error(error_msg);
+    console.error('not a meteor app\n  ' + input);
+    process.exit();
   }
 
   if(program.output && !fs.existsSync(program.output)) {
-    error_msg = 'Output folder doesn\'t exist: ' + program.output;
-    throw new Error(error_msg);
+    console.error('output folder doesn\'t exist\n  ' + program.output);
+    process.exit();
   }
 
   var elec_mod = require('../lib');
-  return elec_mod(input, program.output, program.config, meteor_settings());
+  return elec_mod(input, program.output, program.config, meteor_settings(), true);
 }
 
 function meteor_settings() {
