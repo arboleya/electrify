@@ -4,6 +4,8 @@
   "node": true,
 
   "globals": {
+    "window": true,
+    
     "_": true,
     "Electrify": true,
     "Npm": true,
