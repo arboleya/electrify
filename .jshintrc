@@ -4,11 +4,14 @@
   "node": true,
 
   "globals": {
+    "_": true,
     "Electrify": true,
     "Npm": true,
     "Meteor": true,
     "Package": true,
+    "Random": true,
 
+    "SockJS": true,
 
     "target": true,
 
