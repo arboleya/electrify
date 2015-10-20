@@ -1,5 +1,3 @@
-window = window || this;
-
 /* jshint ignore:start */
 
 /* sockjs-client v1.0.3 | http://sockjs.org | MIT license */

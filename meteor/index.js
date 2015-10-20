@@ -8,17 +8,19 @@ Meteor.startup(function(){
 
   if(Meteor.isServer) {
     where = 'server';
+    SockJS = Npm.require('sockjs-client');
     Meteor.methods({
       'electrify.get.socket.port': function(){
         return process.env.SOCKET_PORT || null;
       }
     });
 
-    // connect(process.env.SOCKET_PORT);
+    connect(process.env.SOCKET_PORT);
   }
 
   if(Meteor.isClient) {
     where = 'client';
+    SockJS = SockJS || window.SockJS;
     Meteor.call('electrify.get.socket.port', [], function(error, port){
       connect(port);
     });
@@ -67,7 +69,7 @@ function connect(port){
   };
 
   socket.onclose = function() {
-    log('closing connection');
+    log('closing connection', JSON.stringify(_.toArray(arguments), null, 2));
   };
 }
 

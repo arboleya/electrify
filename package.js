@@ -8,9 +8,17 @@ Package.describe({
   documentation: 'README.md'
 });
 
+Npm.depends({
+  'sockjs-client': '1.0.3'
+});
+
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
-  api.addFiles('meteor/vendors/sockjs-client.js', ['server', 'client']);
+
+  // TODO: change this static version for a  browserified version of
+  // the npm module informed inside Npm.depends() above
+  api.addFiles('meteor/vendors/sockjs-client.js', ['client'], {bare: true});
   api.addFiles('meteor/index.js', ['server', 'client']);
+  
   api.export('Electrify');
 });
