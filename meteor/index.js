@@ -1,5 +1,3 @@
-// TODO: implement message format for communicating with Electron
-
 Electrify = {};
 
 var callbacks = {};
