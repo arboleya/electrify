@@ -50,6 +50,7 @@ function connect(port){
     _.each(startup_callbacks, function(ready) {
       ready();
     });
+    startup_callbacks = [];
   };
 
   socket.onmessage = function(e) {
