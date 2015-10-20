@@ -9,7 +9,8 @@
   "dependencies": {
     "commander": "^2.8.1",
     "lodash": "^3.10.1",
-    "shelljs": "^0.5.3"
+    "shelljs": "^0.5.3",
+    "sockjs": "^0.3.15"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.1",

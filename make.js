@@ -21,9 +21,10 @@ target.setup = function() {
   log('setting up everything for development');
 
   // list folder paths
-  var parent                 = path.join(__dirname, '..');
-  var leaderboard            = path.join(parent, 'leaderboard');
-  var node_modules           = path.join(parent, 'node_modules');
+  var parent       = path.join(__dirname, '..');
+  var leaderboard  = path.join(parent, 'leaderboard');
+  var packages_dir = path.join(leaderboard, 'packages');
+  var node_modules = path.join(parent, 'node_modules');
 
   // reset folders
   shell.exec('npm link');
@@ -36,7 +37,11 @@ target.setup = function() {
     cwd: parent
   }).on('exit', function(){
 
-    // linking electrify inside it
+    // linking arboleya:electrify inside meteor
+    shell.mkdir('-p', packages_dir);
+    shell.ln('-s', __dirname, path.join(packages_dir, 'arboleya-electrify'));
+
+    // linking electrify inside node_modules
     shell.mkdir('-p', node_modules);
     shell.ln('-s', __dirname, path.join(node_modules, 'electrify'));
 
@@ -45,7 +50,20 @@ target.setup = function() {
       stdio: 'inherit',
       cwd: leaderboard
     }).on('exit', function(){
-      process.exit();
+      
+       // adding electrify package so everything gets cool
+      spawn(meteor_bin, ['add', 'arboleya:electrify'], {
+        stdio: 'inherit',
+        cwd: leaderboard,
+        // modify env var so electrify package will know how to proceed,
+        // fetching the npm package locally or from remote npm registry
+        env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
+
+      // finish
+      }).on('exit', function(){
+        process.exit();
+      });
+
     });
   });
 
@@ -54,13 +72,14 @@ target.setup = function() {
 
 
 // start test app in dev mode
-target.dev = function(){
+target.dev = function(preserve){
   var leaderboard           = path.join(__dirname, '..', 'leaderboard');
   var leaderboard_electrify = path.join(leaderboard, '.electrify');
 
   log('starting in dev mode');
 
-  shell.rm('-rf', leaderboard_electrify);
+  if(!~'preserve'.indexOf(preserve))
+    shell.rm('-rf', leaderboard_electrify);
 
   spawn('electrify', [], {
     cwd: leaderboard,

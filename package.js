@@ -10,6 +10,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
-  api.addFiles('meteor/index.js', 'server');
+  api.addFiles('meteor/vendors/sockjs-client.js', ['server', 'client']);
+  api.addFiles('meteor/index.js', ['server', 'client']);
   api.export('Electrify');
 });
