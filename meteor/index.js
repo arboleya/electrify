@@ -30,7 +30,7 @@ Meteor.startup(function(){
 
 function log(){
   var args = Array.prototype.slice.call(arguments);
-  console.log('electrify:meteor:index@'+ where, args);
+  console.log('electrify:meteor:index@'+ where +':', args.join(' '));
 }
 
 function connect(port){
