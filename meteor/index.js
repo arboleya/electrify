@@ -60,7 +60,7 @@ function connect(port){
     if((done = callbacks[packet.handshake])) {
       callbacks[packet.handshake] = null;
       delete callbacks[packet.handshake];
-      done.apply(null, [].concat(packet.args.error, packet.args));
+      done.apply(null, [].concat(packet.error, packet.args));
     }
     else
       done.apply(null, [
