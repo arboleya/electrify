@@ -71,7 +71,7 @@ function run(){
       cwd: electrify_dir,
       stdio: 'inherit'
     });
-  }      
+  }
   else {
     log('[[[ using global electrify ]]]');
     electrify().app.run();
