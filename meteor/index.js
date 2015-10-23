@@ -69,7 +69,7 @@ function connect(port){
   };
 
   socket.onclose = function() {
-    log('closing connection', JSON.stringify(_.toArray(arguments), null, 2));
+    log('closing socket connection');
   };
 }
 
