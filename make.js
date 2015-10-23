@@ -72,13 +72,13 @@ target.setup = function() {
 
 
 // start test app in dev mode
-target.dev = function(preserve){
+target.dev = function(action){
   var leaderboard           = path.join(__dirname, '..', 'leaderboard');
   var leaderboard_electrify = path.join(leaderboard, '.electrify');
 
   log('starting in dev mode');
 
-  if(!~'preserve'.indexOf(preserve))
+  if(~'reset'.indexOf(action))
     shell.rm('-rf', leaderboard_electrify);
 
   spawn('electrify', [], {
