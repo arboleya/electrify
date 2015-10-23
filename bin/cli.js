@@ -35,35 +35,59 @@ program
 
 program
   .command('run')
-  .description('(default) start meteor app within electrify context, used for dev')
-  .action(function(){
-    electrify().app.run();
-  });
+  .description('(default) start meteor app from inside electrify context')
+  .action(run);
 
 program
   .command('bundle')
-  .description('bundle meteor app into an electron project at `.electrify` dir')
-  .action(function(){
-    electrify().app.bundle(/* server_url */);
-  });
+  .description('bundle meteor app at `.electrify` dir')
+  .action(bundle);
 
 program
   .command('package')
   .description('all in one, bundle + package `.electrify` electron app to `--output` dir')
-  .action(function(){
-    electrify().app.package(/* server_url */);
-  });
+  .action(package);
 
 program.parse(process.argv);
 
 
 // default command = run
 var cmd = process.argv[2];
-if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd))
-  electrify().app.run();
+if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd) ){
+  run();
+}
 
 
-// helpers
+
+function run(){
+  if(has_local_electrify()) {
+
+    var input = program.input || process.cwd();
+    var electrify_dir = path.join(input, '.electrify');
+
+    log('[[[ electron ' + electrify_dir +'` ]]]');
+
+    require('child_process').spawn('electron', [electrify_dir], {
+      cwd: electrify_dir,
+      stdio: 'inherit'
+    });
+  }      
+  else {
+    log('[[[ using global electrify ]]]');
+    electrify().app.run();
+  }
+}
+
+function bundle(){
+  electrify().app.bundle(/* server_url */);
+}
+
+function package(){
+  electrify().app.package(/* server_url */);
+}
+
+
+
 function electrify() {
   var input, meteor_dir;
 
@@ -88,9 +112,27 @@ function electrify() {
     process.exit();
   }
 
-  var elec_mod = require('../lib');
-  return elec_mod(input, program.output, program.config, meteor_settings(), true);
+  // otherwise use this one
+  var entry = require('../lib');
+  return entry(input, program.output, program.config, meteor_settings(), true);
 }
+
+
+
+function has_local_electrify(){
+  // validates input dir (app-root folder)
+  if(program.input && !fs.existsSync(program.input)) {
+    console.error('input folder doesn\'t exist\n  ' + program.input);
+    process.exit();
+  }
+  
+  var input = program.input || process.cwd();
+
+  // validates meteor project
+  return fs.existsSync(path.join(input, '.electrify'));
+}
+
+
 
 function meteor_settings() {
   if(!program.settings) return {};
