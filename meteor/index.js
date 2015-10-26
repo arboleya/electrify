@@ -47,10 +47,7 @@ function connect(port){
 
   socket.onopen = function() {
     log('connection is open');
-    _.each(startup_callbacks, function(ready) {
-      ready();
-    });
-    startup_callbacks = [];
+    fire_ready_callbacks();
   };
 
   socket.onmessage = function(e) {
@@ -73,11 +70,23 @@ function connect(port){
   };
 }
 
-var startup_callbacks = [];
-Electrify.startup = function(ready){
-  startup_callbacks.push(ready);
+var startup_callbacks = {
+  server: [],
+  client: []
 };
 
+Electrify.startup = function(ready){
+  var where = Meteor.isServer ? 'server' : 'client';
+  startup_callbacks[where].push(ready);
+};
+
+function fire_ready_callbacks(){
+  var where = Meteor.isServer ? 'server' : 'client';
+  _.each(startup_callbacks[where], function(ready) {
+    ready();
+  });
+  startup_callbacks[where] = [];
+}
 
 Electrify.call = function(method, args, done) {
 
