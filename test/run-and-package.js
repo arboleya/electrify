@@ -185,4 +185,57 @@ describe('[electrify] run and package', function(){
       });
     });
   });
+
+  // test the methods execution between meteor and electron
+  it('should execute methods between Electron <-> Meteor', function(done) {
+
+    var leaderboard         = path.join(meteor_app_dir, 'leaderboard.js');
+    var leaderboard_content = fs.readFileSync(leaderboard, 'utf8');
+    var leaderboard_call    = [
+      "Electrify.startup(function() {",
+      "  if(Meteor.isClient) return;",
+      "  var fs = Npm.require('fs');",
+      "  var path = Npm.require('path');",
+      "  Electrify.call('sum', [4, 2], function(err, res) {",
+      "    console.log(arguments);",
+      "    var filename = 'method_sum.txt'",
+      "    var save_path = path.join('"+ meteor_app_dir +"', filename)",
+      "    fs.writeFileSync(save_path, res);",
+      "  });",
+      "  Electrify.call('yellow.elephant', [4, 2], function(err, res) {",
+      "    console.log(arguments);",
+      "    var filename = 'method_error.txt'",
+      "    var save_path = path.join('"+ meteor_app_dir +"', filename)",
+      "    fs.writeFileSync(save_path, err.message);",
+      "  });",
+      "});"
+    ].join('\n');
+
+    fs.writeFileSync(leaderboard, leaderboard_content + leaderboard_call);
+
+    var new_electrify = Electrify(meteor_app_dir);
+
+    new_electrify.methods({
+      'sum': function(a, b, done){
+        done(null, a + b);
+      }
+    });
+
+    new_electrify.start(function(){
+      new_electrify.isup().should.equal(true);
+      setTimeout(function(){
+        var method_sum = path.join(meteor_app_dir, 'method_sum.txt');
+        var method_error = path.join(meteor_app_dir, 'method_error.txt');
+        
+        var sum = fs.readFileSync(method_sum, 'utf8');
+        var error = fs.readFileSync(method_error, 'utf8');
+
+        sum.should.equal('6');
+        error.should.equal('method `yellow.elephant` was not defined');
+
+        new_electrify.stop();
+        setTimeout(done, 2500);
+      }, 2500);
+    });
+  });
 });
