@@ -233,9 +233,10 @@ describe('[electrify] run and package', function(){
         sum.should.equal('6');
         error.should.equal('method `yellow.elephant` was not defined');
 
-        new_electrify.stop();
-        setTimeout(done, 2500);
-      }, 2500);
+        new_electrify.stop(function(){
+          setTimeout(done, 500);
+        });
+      }, 500);
     });
   });
 });
