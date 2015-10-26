@@ -27,8 +27,6 @@ describe('[electrify] run and package', function(){
   var electrify;
   var pkg_app_dir;
 
-  var start_stop;
-
   var meteor_bin = 'meteor' + (process.platform == 'win32' ? '.bat' : '');
 
   before(function(done){
@@ -128,7 +126,7 @@ describe('[electrify] run and package', function(){
   });
 
 
-  it('should start / stop the app, in production', start_stop = function(done){
+  it('should start / stop the app, in production', function(done){
 
     var entry_point = shell.find(pkg_app_dir).filter(function(file) {
       return /app(\\|\/)index\.js$/m.test(file);
@@ -159,7 +157,7 @@ describe('[electrify] run and package', function(){
 
   // this test is exactly the same as the above one, it's needed to assure
   // subsequent startups
-  it('should start / stop the app, in production, AGAIN', start_stop = function(done){
+  it('should start / stop the app, in production, AGAIN', function(done){
 
     var entry_point = shell.find(pkg_app_dir).filter(function(file) {
       return /app(\\|\/)index\.js$/m.test(file);
