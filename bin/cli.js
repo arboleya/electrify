@@ -23,14 +23,13 @@ program
       'electrify package -o /dist/dir',
       'electrify package -o /dist/dir -s file.json',
       'electrify package -i /app/dir -o /dist/dir -s dev.json',
-      'electrify package -i /app/dir -o /dist/dir -s dev.json -c config.json'
+      'electrify package -- <electron-packager-options>'
     ].join('\n    ') + '\n');
   });
 
 program
   .option('-i, --input    <path>', 'meteor app dir         | default = .')
   .option('-o, --output   <path>', 'output dir             | default = .electrify/.dist')
-  .option('-c, --config   <path>', 'electrify config file  | default = .electrify/electrify.json')
   .option('-s, --settings <path>', 'meteor settings file   | default = null (optional)');
 
 program
@@ -114,7 +113,7 @@ function electrify() {
 
   // otherwise use this one
   var entry = require('../lib');
-  return entry(input, program.output, program.config, meteor_settings(), true);
+  return entry(input, program.output, meteor_settings(), true);
 }
 
 
