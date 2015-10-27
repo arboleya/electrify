@@ -9,7 +9,7 @@ install:
   - nvm install 0.10.40
   - nvm use 0.10.40
   - npm install
-  - sudo curl https://install.meteor.com | /bin/sh
+  - sudo curl http://install.meteor.com | /bin/sh
   - node --version
   - meteor --version
 
