@@ -15,7 +15,7 @@ program
     log('  Examples:\n');
     log('    ' + [
       '# cd into meteor dir first',
-      'cd /you/meteor/app',
+      'cd /your/meteor/app',
       '',
       'electrify',
       'electrify run',
@@ -28,13 +28,13 @@ program
   });
 
 program
-  .option('-i, --input    <path>', 'meteor app dir         | default = .')
-  .option('-o, --output   <path>', 'output dir             | default = .electrify/.dist')
-  .option('-s, --settings <path>', 'meteor settings file   | default = null (optional)');
+  .option('-i, --input    <path>', 'meteor app dir       | default = .')
+  .option('-o, --output   <path>', 'output dir           | default = .electrify/.dist')
+  .option('-s, --settings <path>', 'meteor settings file | default = null (optional)');
 
 program
   .command('run')
-  .description('(default) start meteor app from inside electrify context')
+  .description('(default) start meteor app within electrify context')
   .action(run);
 
 program
@@ -44,7 +44,7 @@ program
 
 program
   .command('package')
-  .description('all in one, bundle + package `.electrify` electron app to `--output` dir')
+  .description('bundle and package app to `--output` dir')
   .action(package);
 
 program.parse(process.argv);
