@@ -54,10 +54,9 @@ $ electrify -h
 npm install -g electrify
 ````
 
-For invoking Electron methods from Meteor, you'll also need to install the
-`arboleya:electrify` meteor package.
-
-For more infos, check [Meteor x Electron communication](#meteor-x-electron-communication).
+> For invoking Electron methods from Meteor, you'll also need to install the
+> `arboleya:electrify` meteor package.
+> For more info check [Meteor x Electron communication](#meteor-x-electron-communication).
 
 ## Running app
 
