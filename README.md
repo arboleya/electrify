@@ -144,6 +144,9 @@ dependency.
 See this folder as the `desktop layer` for your Meteor app. Remember to check
 out the `index.js` file, it constains the electrify start/stop usage.
 
+The `electrify.json` file will hold specific preferences for Electrify, such as
+plugins and so on. It's a WIP.
+
 # Customizing
 
 Let's see how one would be able to do a simple SplashScreen:
