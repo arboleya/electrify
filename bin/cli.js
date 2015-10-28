@@ -4,7 +4,7 @@ var path      = require('path');
 var fs        = require('fs');
 var program   = require('commander');
 var log       = console.log;
-
+var spawn      = require('child_process').spawn;
 program
   .usage('[command] [options]')
   .version(require('../package.json').version)
@@ -56,25 +56,22 @@ if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd) ){
   run();
 }
 
+function run_electron(){
+  var input         = program.input || process.cwd();
+  var electrify_dir = path.join(input, '.electrify');
+  var electron_path = require('electron-prebuilt');
 
+  log('[[[ electron ' + electrify_dir +'` ]]]');
+  spawn(electron_path, [electrify_dir], {
+    stdio: 'inherit'
+  });
+}
 
 function run(){
-  if(has_local_electrify()) {
-
-    var input = program.input || process.cwd();
-    var electrify_dir = path.join(input, '.electrify');
-
-    log('[[[ electron ' + electrify_dir +'` ]]]');
-
-    require('child_process').spawn('electron', [electrify_dir], {
-      cwd: electrify_dir,
-      stdio: 'inherit'
-    });
-  }
-  else {
-    log('[[[ using global electrify ]]]');
-    electrify().start();
-  }
+  if(!has_local_electrify())
+    electrify().app.init(run_electron);
+  else
+    run_electron();
 }
 
 function bundle(){
