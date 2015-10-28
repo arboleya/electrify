@@ -73,7 +73,7 @@ function run(){
   }
   else {
     log('[[[ using global electrify ]]]');
-    electrify().app.run();
+    electrify().start();
   }
 }
 
