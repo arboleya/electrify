@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.8.1",
+    "electron-prebuilt": "^0.34.1",
     "lodash": "^3.10.1",
     "shelljs": "^0.5.3",
     "sockjs": "^0.3.15"

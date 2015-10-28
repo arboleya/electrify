@@ -3,8 +3,9 @@
 var path      = require('path');
 var fs        = require('fs');
 var program   = require('commander');
-var log       = console.log;
 var spawn      = require('child_process').spawn;
+var log       = console.log;
+
 program
   .usage('[command] [options]')
   .version(require('../package.json').version)
@@ -67,11 +68,17 @@ function run_electron(){
   });
 }
 
+function is_meteor_app(){
+  var input = program.input || process.cwd();
+  var meteor_dir = path.join(input, '.meteor');
+  return fs.existsSync(meteor_dir);
+}
+
 function run(){
-  if(!has_local_electrify())
-    electrify().app.init(run_electron);
-  else
+  if(has_local_electrify())
     run_electron();
+  else if(is_meteor_app())
+    electrify(true).app.init(run_electron);
 }
 
 function bundle(){
@@ -84,8 +91,8 @@ function package(){
 
 
 
-function electrify() {
-  var input, meteor_dir;
+function electrify(create) {
+  var input;
 
   // validates input dir (app-root folder)
   if(program.input && !fs.existsSync(program.input)) {
@@ -95,10 +102,7 @@ function electrify() {
   
   input = program.input || process.cwd();
 
-  // validates meteor project
-  meteor_dir = path.join(input, '.meteor');
-
-  if(!fs.existsSync(meteor_dir)) {
+  if(!is_meteor_app()) {
     console.error('not a meteor app\n  ' + input);
     process.exit();
   }
@@ -108,9 +112,21 @@ function electrify() {
     process.exit();
   }
 
+  var entry;
+  var electrify_dir = path.join(input, '.electrify');
+  var electrify_mod = path.join(electrify_dir, 'node_modules', 'electrify');
+
+  if(fs.existsSync(electrify_mod))
+    entry = require(electrify_mod);
+  else {
+    if(create)
+      fs.mkdirSync(electrify_dir);
+
+    entry = require('..');
+  }
+
   // otherwise use this one
-  var entry = require('../lib');
-  return entry(input, program.output, meteor_settings(), true);
+  return entry(electrify_dir, program.output, meteor_settings(), true);
 }
 
 

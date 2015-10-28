@@ -81,7 +81,7 @@ target.dev = function(action){
   if(~'reset'.indexOf(action))
     shell.rm('-rf', leaderboard_electrify);
 
-  spawn('electrify', [], {
+  spawn('node', [path.join(__dirname, 'bin', 'cli.js')], {
     cwd: leaderboard,
     stdio: 'inherit',
     env: _.extend({
