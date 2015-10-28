@@ -95,9 +95,10 @@ describe('[electrify] run and package', function(){
 
 
   it('should run & terminate the app', function(done) {
-    electrify.app.run(function(){
-      electrify.app.terminate();
-      setTimeout(done, 2500);
+    electrify.start(function(){
+      electrify.stop(function(){
+        setTimeout(done, 2500);
+      });
     });
   });
 
@@ -147,9 +148,9 @@ describe('[electrify] run and package', function(){
 
           new_electrify.stop();
 
-          // give sometime before the final analysys, so next tests
+          // give sometime before proceeding, so next tests
           // will have a good time on slow windows machines
-          setTimeout(done, 2500);
+          setTimeout(done, 1000);
         });
       });
     });
@@ -180,7 +181,7 @@ describe('[electrify] run and package', function(){
 
           // give sometime before the final analysys, so next tests
           // will have a good time on slow windows machines
-          setTimeout(done, 2500);
+          setTimeout(done, 1000);
         });
       });
     });
@@ -188,6 +189,13 @@ describe('[electrify] run and package', function(){
 
   // test the methods execution between meteor and electron
   it('should execute methods between Electron <-> Meteor', function(done) {
+
+    var method_sum_path =  path.join(meteor_app_dir, '..', 'method_sum.txt');
+    var method_err_path =  path.join(meteor_app_dir, '..', 'method_err.txt');
+
+    // fix paths for windows
+    method_sum_path = method_sum_path.replace(/\\/g, '\\\\');
+    method_err_path = method_err_path.replace(/\\/g, '\\\\');
 
     var leaderboard         = path.join(meteor_app_dir, 'leaderboard.js');
     var leaderboard_content = fs.readFileSync(leaderboard, 'utf8');
@@ -198,15 +206,13 @@ describe('[electrify] run and package', function(){
       "  var path = Npm.require('path');",
       "  Electrify.call('sum', [4, 2], function(err, res) {",
       "    console.log(arguments);",
-      "    var filename = 'method_sum.txt'",
-      "    var save_path = path.join('"+ meteor_app_dir +"', filename)",
-      "    fs.writeFileSync(save_path, res);",
+      "    console.log('>>', '"+ method_sum_path +"');",
+      "    fs.writeFileSync('"+ method_sum_path +"', res);",
       "  });",
       "  Electrify.call('yellow.elephant', [4, 2], function(err, res) {",
       "    console.log(arguments);",
-      "    var filename = 'method_error.txt'",
-      "    var save_path = path.join('"+ meteor_app_dir +"', filename)",
-      "    fs.writeFileSync(save_path, err.message);",
+      "    console.log('>>', '"+ method_err_path +"');",
+      "    fs.writeFileSync('"+ method_err_path +"', err.message);",
       "  });",
       "});"
     ].join('\n');
@@ -216,19 +222,18 @@ describe('[electrify] run and package', function(){
     var new_electrify = Electrify(meteor_app_dir);
 
     new_electrify.methods({
-      'sum': function(a, b, done){
-        done(null, a + b);
+      'sum': function(a, b, _done){
+        _done(null, a + b);
       }
     });
 
     new_electrify.start(function(){
+
       new_electrify.isup().should.equal(true);
+
       setTimeout(function(){
-        var method_sum = path.join(meteor_app_dir, 'method_sum.txt');
-        var method_error = path.join(meteor_app_dir, 'method_error.txt');
-        
-        var sum = fs.readFileSync(method_sum, 'utf8');
-        var error = fs.readFileSync(method_error, 'utf8');
+        var sum = fs.readFileSync(method_sum_path, 'utf8');
+        var error = fs.readFileSync(method_err_path, 'utf8');
 
         sum.should.equal('6');
         error.should.equal('method `yellow.elephant` was not defined');
@@ -236,7 +241,7 @@ describe('[electrify] run and package', function(){
         new_electrify.stop(function(){
           setTimeout(done, 500);
         });
-      }, 500);
+      }, 1000);
     });
   });
 });
