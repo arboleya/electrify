@@ -23,6 +23,7 @@ describe('[electrify] run and package', function(){
   var meteor_app_dir;
   var packages_dir;
   var electrify_dir;
+  var meteor_electrified_dir;
   
   var electrify;
   var pkg_app_dir;
@@ -42,16 +43,15 @@ describe('[electrify] run and package', function(){
     root_dir = path.join(__dirname, '..');
     npm_dir  = path.join(root_dir, '.npm', 'node_modules', 'electrify');
 
-    node_mods_dir  = path.join(tests_dir, 'node_modules');
-    meteor_app_dir = path.join(tests_dir, 'leaderboard');
-    packages_dir   = path.join(meteor_app_dir, 'packages');
-    electrify_dir  = path.join(packages_dir, 'arboleya-electrify');
-    
-    electrify  = Electrify(meteor_app_dir);
+    node_mods_dir          = path.join(tests_dir, 'node_modules');
+    meteor_app_dir         = path.join(tests_dir, 'leaderboard');
+    meteor_electrified_dir = path.join(meteor_app_dir, '.electrify')
+    packages_dir           = path.join(meteor_app_dir, 'packages');
+    electrify_dir          = path.join(packages_dir, 'arboleya-electrify');
     
     var name = 'my-electrified-app';
-    var plat = electrify.env.sys.platform;
-    var arch = electrify.env.sys.arch;
+    var plat = process.platform;
+    var arch = process.arch;
     
     var dist_dir  = name + '-' + plat + '-' + arch;
 
@@ -62,39 +62,48 @@ describe('[electrify] run and package', function(){
     // reset tests dir
     shell.rm('-rf', npm_dir);
     shell.rm('-rf', tests_dir);
-    shell.rm('-rf', electrify.env.core.root);
 
     shell.mkdir('-p', node_mods_dir);
     shell.ln('-s', root_dir, path.join(node_mods_dir, 'electrify'));
 
-    // crates a sample app and add the package
-    spawn(meteor_bin, ['create', '--example', 'leaderboard'], {
-      cwd: tests_dir,
-      stdio: stdio_config
-    }).on('exit', function(){
+    shell.mkdir('-p', meteor_electrified_dir);
+    electrify = Electrify(meteor_electrified_dir);
+    shell.rm('-rf', electrify.env.core.root);
 
-      // creates internal folder and link it with the package
-      shell.mkdir('-p', packages_dir);
-      shell.ln('-s', path.join(__dirname, '..'), electrify_dir);
+    electrify.app.init(function(){
 
-      // remove mobile platforms
-      spawn(meteor_bin, ['remove-platform', 'android', 'ios'], {
-        cwd: meteor_app_dir,
+      // crates a sample app and add the package
+      spawn(meteor_bin, ['create', '--example', 'leaderboard'], {
+        cwd: tests_dir,
         stdio: stdio_config
       }).on('exit', function(){
 
-        // add electrify package
-        spawn(meteor_bin, ['add', 'arboleya:electrify'], {
+        // creates internal folder and link it with the package
+        shell.mkdir('-p', packages_dir);
+        shell.ln('-s', path.join(__dirname, '..'), electrify_dir);
+
+        // remove mobile platforms
+        spawn(meteor_bin, ['remove-platform', 'android', 'ios'], {
           cwd: meteor_app_dir,
-          stdio: stdio_config,
-          env: process.env
-        }).on('exit', done);
+          stdio: stdio_config
+        }).on('exit', function(){
+
+          // add electrify package
+          spawn(meteor_bin, ['add', 'arboleya:electrify'], {
+            cwd: meteor_app_dir,
+            stdio: stdio_config,
+            env: process.env
+          }).on('exit', done);
+        });
       });
+      
     });
+
   });
 
 
   it('should run & terminate the app', function(done) {
+    return done();
     electrify.start(function(){
       electrify.stop(function(){
         setTimeout(done, 2500);
@@ -219,7 +228,7 @@ describe('[electrify] run and package', function(){
 
     fs.writeFileSync(leaderboard, leaderboard_content + leaderboard_call);
 
-    var new_electrify = Electrify(meteor_app_dir);
+    var new_electrify = Electrify(meteor_electrified_dir);
 
     new_electrify.methods({
       'sum': function(a, b, _done){

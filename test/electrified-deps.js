@@ -33,14 +33,17 @@ describe('[electrify] .electrified dependencies', function(){
     console.log('preparing test environment');
 
     process.env.DEVELECTRIFY = true;
-    electrify = Electrify(meteor_app_dir);
 
     // reset tests dir
     shell.rm('-rf', npm_dir);
     shell.rm('-rf', tests_dir);
-    shell.rm('-rf', electrify.env.core.root);
 
     shell.mkdir('-p', tests_dir);
+    shell.mkdir('-p', electrify_dir);
+
+    electrify = Electrify(electrify_dir);
+
+    shell.rm('-rf', electrify.env.core.root);
 
     // crates a sample app and add the package
     spawn(meteor_bin, ['create', '--example', 'leaderboard'], {
@@ -70,7 +73,7 @@ describe('[electrify] .electrified dependencies', function(){
   it('should ensure .electrify dependencies', function(done) {
 
     process.env.DEVELECTRIFY = false;
-    electrify = Electrify(meteor_app_dir);
+    electrify = Electrify(electrify_dir);
 
     electrify.scaffold.prepare();
 
