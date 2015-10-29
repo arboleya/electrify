@@ -84,10 +84,10 @@ target.dev = function(action){
   spawn('node', [path.join(__dirname, 'bin', 'cli.js')], {
     cwd: leaderboard,
     stdio: 'inherit',
-    env: _.extend({
+    env: _.extend(_.clone(process.env), {
       DEVELECTRIFY: true,
       LOGELECTRIFY: 'ALL'
-    }, process.env)
+    })
   });
 };
 
