@@ -65,13 +65,19 @@ function run_electron(){
   var input         = program.input || process.cwd();
   var electrify_dir = path.join(input, '.electrify');
   var electron_path = require('electron-prebuilt');
+  var settings      = parse_meteor_settings(true);
+
+  if(settings)
+    settings = {
+      ELECTRIFY_SETTINGS_FILE: path.resolve(settings)
+    };
+  else
+    settings = {};
 
   log('[[[ electron ' + electrify_dir +'` ]]]');
   spawn(electron_path, [electrify_dir], {
     stdio: 'inherit',
-    env: _.extend({
-      ELECTRIFY_SETTINGS_FILE: path.resolve(program.settings)
-    }, process.env)
+    env: _.extend(settings, process.env)
   });
 }
 
@@ -133,7 +139,7 @@ function electrify(create) {
   }
 
   // otherwise use this one
-  return entry(electrify_dir, program.output, meteor_settings(), true);
+  return entry(electrify_dir, program.output, parse_meteor_settings(), true);
 }
 
 
@@ -153,8 +159,9 @@ function has_local_electrify(){
 
 
 
-function meteor_settings() {
-  if(!program.settings) return {};
+function parse_meteor_settings(reuturn_path_only) {
+  if(!program.settings)
+    return (reuturn_path_only ? null : {});
 
   var relative = path.join(process.cwd(), program.settings);
   var absolute = path.resolve(program.settings);
@@ -165,7 +172,10 @@ function meteor_settings() {
     process.exit();
   }
 
-  return require(settings);
+  if(reuturn_path_only)
+    return settings;
+  else
+    return require(settings);
 }
 
 
