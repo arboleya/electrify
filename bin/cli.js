@@ -69,7 +69,9 @@ function run_electron(){
   log('[[[ electron ' + electrify_dir +'` ]]]');
   spawn(electron_path, [electrify_dir], {
     stdio: 'inherit',
-    env: process.env
+    env: _.extend({
+      ELECTRIFY_SETTINGS_FILE: path.resolve(program.settings)
+    }, process.env)
   });
 }
 
