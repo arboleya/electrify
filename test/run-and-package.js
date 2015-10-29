@@ -112,7 +112,7 @@ describe('[electrify] run and package', function(){
 
 
   it('should package the app', function(done){
-    electrify.app.package(function(){
+    electrify.app.package({}, function(){
       // give some time for the disk to refresh its state
       setTimeout(function(){
         should(fs.existsSync(pkg_app_dir)).be.ok();

@@ -3,8 +3,9 @@
 var path      = require('path');
 var fs        = require('fs');
 var program   = require('commander');
-var spawn      = require('child_process').spawn;
+var spawn     = require('child_process').spawn;
 var log       = console.log;
+var _         = require('lodash');
 
 program
   .usage('[command] [options]')
@@ -24,7 +25,10 @@ program
       'electrify package -o /dist/dir',
       'electrify package -o /dist/dir -s file.json',
       'electrify package -i /app/dir -o /dist/dir -s dev.json',
-      'electrify package -- <electron-packager-options>'
+      'electrify package -- <electron-packager-options>',
+      '',
+      'Electron Packager\'s options can be found here:',
+      '    https://www.npmjs.com/package/electron-packager'
     ].join('\n    ') + '\n');
   });
 
@@ -87,7 +91,7 @@ function bundle(){
 }
 
 function package(){
-  electrify().app.package(/* server_url */);
+  electrify().app.package(parse_packager_options());
 }
 
 
@@ -160,4 +164,44 @@ function meteor_settings() {
   }
 
   return require(settings);
+}
+
+
+function parse_packager_options(){
+  var names = [
+    '--icon',
+    '--app-bundle-id',
+    '--app-version',
+    '--build-version',
+    '--cache',
+    '--helper-bundle-id',
+    '--ignore',
+    '--prune',
+    '--overwrite',
+    '--asar',
+    '--asar-unpack',
+    '--sign',
+    '--version-string'
+  ];
+
+  var dashdash = process.argv.indexOf('--');
+  var options = {};
+
+  if(~dashdash) {
+    var args = process.argv.slice(dashdash+1);
+
+    _.each(args, function(arg){
+
+      var parts = arg.split('=');
+      var key = parts[0];
+      var val = parts[1];
+    
+      if(~names.indexOf(key))
+        options[key.slice(2)] = val;
+      else
+        log('Option `' + key + '` doens\'t exist, ignoring it');
+    });
+  }
+  
+  return options;
 }
