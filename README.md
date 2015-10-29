@@ -20,6 +20,7 @@ $ electrify -h
 
   Usage: electrify [command] [options]
 
+
   Commands:
 
     run       (default) start meteor app within electrify context
@@ -45,7 +46,10 @@ $ electrify -h
     electrify package -o /dist/dir
     electrify package -o /dist/dir -s file.json
     electrify package -i /app/dir -o /dist/dir -s dev.json
-    electrify package -- <electron-packager:options>
+    electrify package -- <electron-packager-options>
+
+    # more info about electron packager options:
+    # ~> https://www.npmjs.com/package/electron-packager
 ````
 
 ## Installation

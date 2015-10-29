@@ -27,8 +27,8 @@ program
       'electrify package -i /app/dir -o /dist/dir -s dev.json',
       'electrify package -- <electron-packager-options>',
       '',
-      'Electron Packager\'s options can be found here:',
-      '    https://www.npmjs.com/package/electron-packager'
+      '# more info about electron packager options:',
+      '# ~> https://www.npmjs.com/package/electron-packager'
     ].join('\n    ') + '\n');
   });
 
