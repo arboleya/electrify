@@ -103,7 +103,6 @@ describe('[electrify] run and package', function(){
 
 
   it('should run & terminate the app', function(done) {
-    return done();
     electrify.start(function(){
       electrify.stop(function(){
         setTimeout(done, 2500);
