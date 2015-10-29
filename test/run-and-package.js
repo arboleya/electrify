@@ -45,7 +45,7 @@ describe('[electrify] run and package', function(){
 
     node_mods_dir          = path.join(tests_dir, 'node_modules');
     meteor_app_dir         = path.join(tests_dir, 'leaderboard');
-    meteor_electrified_dir = path.join(meteor_app_dir, '.electrify')
+    meteor_electrified_dir = path.join(meteor_app_dir, '.electrify');
     packages_dir           = path.join(meteor_app_dir, 'packages');
     electrify_dir          = path.join(packages_dir, 'arboleya-electrify');
     
