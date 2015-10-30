@@ -5,8 +5,8 @@
   "bin": {
     "electrify": "bin/cli.js"
   },
-  "engines" : {
-    "node" : ">=0.10.36"
+  "engines": {
+    "node": ">=0.10.36"
   },
   "description": "Package your Meteor apps with Electron, and butter.",
   "author": "Anderson Arboleya <anderson@arboleya.me>",
@@ -16,6 +16,7 @@
     "electron-packager": "^5.1.0",
     "electron-prebuilt": "^0.34.1",
     "lodash": "^3.10.1",
+    "server-destroy": "^1.0.1",
     "shelljs": "^0.5.3",
     "sockjs": "^0.3.15"
   },
