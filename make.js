@@ -24,12 +24,10 @@ target.setup = function() {
   var parent       = path.join(__dirname, '..');
   var leaderboard  = path.join(parent, 'leaderboard');
   var packages_dir = path.join(leaderboard, 'packages');
-  var node_modules = path.join(parent, 'node_modules');
 
   // reset folders
   shell.exec('npm link');
   shell.rm('-rf', leaderboard);
-  shell.rm('-rf', node_modules);
 
   // create sample test app in parent dir
   spawn(meteor_bin, ['create', '--example', 'leaderboard'], {
@@ -37,13 +35,9 @@ target.setup = function() {
     cwd: parent
   }).on('exit', function(){
 
-    // linking arboleya:electrify inside meteor
+    // links arboleya:electrify inside meteor
     shell.mkdir('-p', packages_dir);
     shell.ln('-s', __dirname, path.join(packages_dir, 'arboleya-electrify'));
-
-    // linking electrify inside node_modules
-    shell.mkdir('-p', node_modules);
-    shell.ln('-s', __dirname, path.join(node_modules, 'electrify'));
 
     // removes mobile platforms
     spawn(meteor_bin, ['remove-platform', 'ios', 'android'], {
@@ -51,13 +45,16 @@ target.setup = function() {
       cwd: leaderboard
     }).on('exit', function(){
       
-       // adding electrify package so everything gets cool
+       // adding electrify meteor package
       spawn(meteor_bin, ['add', 'arboleya:electrify'], {
         stdio: 'inherit',
         cwd: leaderboard,
         // modify env var so electrify package will know how to proceed,
         // fetching the npm package locally or from remote npm registry
-        env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
+        env: _.extend({
+          DEVELECTRIFY: true,
+          LOGELECTRIFY: 'ALL'
+        }, process.env)
 
       // finish
       }).on('exit', function(){
