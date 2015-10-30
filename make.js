@@ -94,14 +94,22 @@ target.dev = function(action){
 target.test = function() {
   spawn(node_bin, [_MOCHA, 'test'], {
     stdio: 'inherit',
-    env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
+    env: _.extend({
+      DEVELECTRIFY: true,
+      LOGELECTRIFY: 'ALL',
+      TESTELECTRIFY: true
+    }, process.env)
   });
 };
 
 target['test.cover'] = function(done){
   spawn(node_bin, [ISTANBUL, 'cover', _MOCHA], {
     stdio: 'inherit',
-    env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
+    env: _.extend({
+      DEVELECTRIFY: true,
+      LOGELECTRIFY: 'ALL',
+      TESTELECTRIFY: true
+    }, process.env)
   }).on('exit', function(){
     if(done) done();
   });
@@ -113,7 +121,11 @@ target['test.cover.preview'] = function(){
     spawn('python', ['-m', 'SimpleHTTPServer', '8080'], {
       cwd: './coverage/lcov-report',
       stdio: 'inherit',
-      env: _.extend({DEVELECTRIFY: true, LOGELECTRIFY: 'ALL'}, process.env)
+      env: _.extend({
+        DEVELECTRIFY: true,
+        LOGELECTRIFY: 'ALL',
+        TESTELECTRIFY: true
+      }, process.env)
     });
     console.log('preview coverage at: http://localhost:8080');
   });
