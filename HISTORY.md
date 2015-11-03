@@ -1,3 +1,14 @@
+2.0.0 / 2015-11-03
+===================
+  * Added integration/communication between Electron and Meteor
+  * Plugins architecture re-designed
+  * Fixed process termination
+  * Fixed Meteor's settings
+  * Redesigned core dependencies
+  * Core project is now NPM, the Meteor package only provides a communication
+  channel between Meteor and Electron, all the rest is done with the NPM package
+  * Adding more options to the CLI tool for more flexibility
+
 1.4.0 / 2015-10-08
 ===================
   * Improving plugins API
