@@ -20,7 +20,6 @@ $ electrify -h
 
   Usage: electrify [command] [options]
 
-
   Commands:
 
     run       (default) start meteor app within electrify context
@@ -60,7 +59,7 @@ npm install -g electrify
 
 > For invoking Electron methods from Meteor, you'll also need to install the
 > `arboleya:electrify` meteor package.
-> For more info check [Meteor x Electron communication](#meteor-x-electron-communication).
+> For more info check [Meteor x Electron integration](#meteor-x-electron-integration).
 
 ## Running app
 
@@ -77,9 +76,7 @@ electrify package
 ````
 
 The packaging process is done under the hood using `electron-packager`
-npm [package](https://www.npmjs.com/package/electron-packager).
-
-The following variables are automatically set:
+npm package. The following variables are automatically set:
 
   * `--out` -- *comes from cli option [-o, --out]*
   * `--arch` -- *comes from system [current arch]*
@@ -94,9 +91,13 @@ cd /your/meteor/app
 electrify package -- --icon=/folder/x/img/icon.png --version=x.y.z
 ````
 
-> **NOTES**
-> 
-> The output app will match your current operational system and arch type.
+All the available options for `electron-packager` can be found here:
+https://www.npmjs.com/package/electron-packager
+
+### Notes
+
+The output app will match your current operational system and arch type.
+
   * To get an **OSX** app, run it from a **Osx** machine.
   * To get an **Linux 32bit** app, run it from a **32bit Linux** machine.
   * To get an **Linux 64bit** app, run it from a **64nit Linux** machine.
@@ -112,8 +113,10 @@ one single OS.
 
 Perhaps you can live with it? :)
 
-**Do not use** options to output for multiple arch/platforms at once. It won't
-work, Electrify can bundle Meteor apps only for the platform you're running on.
+> **DO NOT** use options to output for multiple arch/platforms at once, such as
+`--arch=all`. It won't work, Electrify can bundle Meteor apps only for the
+platform you're running on.
+
 
 ## Options
 
@@ -192,7 +195,7 @@ app.on('ready', function() {
 
 ````
 
-## Meteor x Electron communication
+## Meteor x Electron integration
 
 You can seamlessly call Electron methods from your Meteor's client/server code.
 
