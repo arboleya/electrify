@@ -212,7 +212,7 @@ Then, define your Electron methods inside the `.electrify` folder:
 // `.electrify/index.js` file
 electrify.methods({
   'hello.world': function(firstname, lastname, done) {
-    // do thins with electron api, and then call the `done` callback
+    // do things with electron api, and then call the `done` callback
     // as ~> done(err, res);
     done(null, 'Hello '+ firstname +' '+ lastname +'!');
    }
