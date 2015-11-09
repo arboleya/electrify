@@ -169,6 +169,13 @@ target['test.cover.send'] = function() {
 target['update.version'] = function(version) {
   var filepath, content, replacement;
 
+  // package.js
+  replacement  = '$1'+ version[0] + "'";
+  filepath     = path.join(__dirname, 'package.js');
+  content      = fs.readFileSync(filepath, 'utf-8');
+  content      = content.replace(/(^var VERSION = ')[0-9\.]+'/i, replacement);
+  fs.writeFileSync(filepath, content);
+
   // package.json
   replacement  = '"version": "'+ version[0];
   filepath     = path.join(__dirname, 'package.json');
