@@ -212,6 +212,7 @@ target.publish = function(){
   shell.exec('git tag -a '+ version +' -m "Releasing '+ version +'"');
   shell.exec('git push origin master --tags');
   shell.exec('npm publish');
+  shell.exec('meteor publish');
 };
 
 
