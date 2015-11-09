@@ -1,3 +1,8 @@
+2.0.1 / 2015-11-09
+===================
+ * Fixing requirememts for production app (meteor is not required!)
+ * Fixing packager options parser (in cli.js)
+
 2.0.0 / 2015-11-03
 ===================
   * Added integration/communication between Electron and Meteor
