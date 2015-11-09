@@ -200,20 +200,21 @@ function parse_packager_options(){
   var options = {};
 
   if(~dashdash) {
+
     var args = process.argv.slice(dashdash+1);
 
     _.each(args, function(arg){
 
       var parts = arg.split('=');
       var key = parts[0];
-      var val = parts[1];
-    
+      var val = parts[1] || true;
+
       if(~names.indexOf(key))
         options[key.slice(2)] = val;
       else
         log('Option `' + key + '` doens\'t exist, ignoring it');
     });
   }
-  
+
   return options;
 }
