@@ -1,3 +1,7 @@
+2.0.2 / 2015-11-09
+===================
+  * Fixing last release (broken due to a wrong variable inside a conditional)
+
 2.0.1 / 2015-11-09
 ===================
  * Fixing requirememts for production app (meteor is not required!)
