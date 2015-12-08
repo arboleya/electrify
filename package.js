@@ -15,6 +15,8 @@ Npm.depends({
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
 
+  api.use('random');
+
   // TODO: change this static version for a  browserified version of
   // the npm module informed inside Npm.depends() above
   api.addFiles('meteor/vendors/sockjs-client.js', ['client'], {bare: true});
