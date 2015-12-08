@@ -100,8 +100,8 @@ The output app will match your current operational system and arch type.
 
   * To get an **OSX** app, run it from a **Osx** machine.
   * To get an **Linux 32bit** app, run it from a **32bit Linux** machine.
-  * To get an **Linux 64bit** app, run it from a **64nit Linux** machine.
-  * To get an **Windows 32bit** app, run it from a **64bit Windows** machine.
+  * To get an **Linux 64bit** app, run it from a **64bit Linux** machine.
+  * To get an **Windows 32bit** app, run it from a **32bit Windows** machine.
   * To get an **Windows 64bit** app, run it from a **64bit Windows** machine.
 
 Due to NodeJS native bindings of such libraries such as Fibers -- *which are
