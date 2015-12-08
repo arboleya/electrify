@@ -1,3 +1,7 @@
+2.1.1 / 2015-12-08
+===================
+  * Fixing broken release
+
 2.1.0 / 2015-12-08
 ===================
   * Added `preserve_db` option
