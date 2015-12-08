@@ -152,7 +152,15 @@ See this folder as the `desktop layer` for your Meteor app. Remember to check
 out the `index.js` file, it constains the electrify start/stop usage.
 
 The `electrify.json` file will hold specific preferences for Electrify, such as
-plugins and so on. It's a WIP.
+plugins and so on. It's still a WIP, but you can get around it.
+
+### Config (`electrify.json`)
+
+For now there's only one option here: `preserve_db`.
+
+Set it to true to preserve database between installs. It works by saving the
+mongo data dir inside user's data folder, instead of being self contained within
+the app folder (which gets deleted when new version is installed).
 
 # Customizing
 

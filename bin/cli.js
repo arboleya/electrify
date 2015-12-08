@@ -125,21 +125,9 @@ function electrify(create) {
     process.exit();
   }
 
-  var entry;
-  var electrify_dir = path.join(input, '.electrify');
-  var electrify_mod = path.join(electrify_dir, 'node_modules', 'electrify');
-
-  if(fs.existsSync(electrify_mod))
-    entry = require(electrify_mod);
-  else {
-    if(create)
-      fs.mkdirSync(electrify_dir);
-
-    entry = require('..');
-  }
-
   // otherwise use this one
-  return entry(electrify_dir, program.output, parse_meteor_settings(), true);
+  var root = path.join(input, '.electrify');
+  return require('..')(root, program.output, parse_meteor_settings(), true);
 }
 
 
@@ -207,8 +195,8 @@ function parse_packager_options(){
 
       var parts = arg.split('=');
       var key = parts[0];
-      var val = parts[1] || true;
-
+      var val = 'undefined' == typeof(parts[1]) ? true : parts[1];
+    
       if(~names.indexOf(key))
         options[key.slice(2)] = val;
       else
