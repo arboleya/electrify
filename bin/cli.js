@@ -170,9 +170,9 @@ function has_local_electrify(){
 
 
 
-function parse_meteor_settings(reuturn_path_only) {
+function parse_meteor_settings(return_path_only) {
   if(!program.settings)
-    return (reuturn_path_only ? null : {});
+    return (return_path_only ? null : {});
 
   var relative = join(process.cwd(), program.settings);
   var absolute = path.resolve(program.settings);
@@ -183,7 +183,7 @@ function parse_meteor_settings(reuturn_path_only) {
     process.exit();
   }
 
-  if(reuturn_path_only)
+  if(return_path_only)
     return settings;
   else
     return require(settings);
