@@ -1,4 +1,4 @@
-var VERSION = '2.1.1';
+var VERSION = '2.1.2';
 
 Package.describe({
   name: 'arboleya:electrify',

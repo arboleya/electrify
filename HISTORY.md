@@ -1,3 +1,9 @@
+2.1.2 / 2015-12-09
+===================
+  * Using system NPM to perform installs
+  * Automatically installing Electrify meteor package
+  * Upgrading all dependencies to last versions
+
 2.1.1 / 2015-12-08
 ===================
   * Fixing broken release
