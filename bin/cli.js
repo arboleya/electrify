@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 var path      = require('path');
+var join      = path.join;
 var fs        = require('fs');
 var program   = require('commander');
 var spawn     = require('child_process').spawn;
 var log       = console.log;
 var _         = require('lodash');
+var shell     = require('shelljs');
 
 program
   .usage('[command] [options]')
@@ -63,7 +65,7 @@ if(process.argv.length == 2 || -1 == 'run|bundle|package'.indexOf(cmd) ){
 
 function run_electron(){
   var input         = program.input || process.cwd();
-  var electrify_dir = path.join(input, '.electrify');
+  var electrify_dir = join(input, '.electrify');
   var electron_path = require('electron-prebuilt');
   var settings      = parse_meteor_settings(true);
 
@@ -83,7 +85,7 @@ function run_electron(){
 
 function is_meteor_app(){
   var input = program.input || process.cwd();
-  var meteor_dir = path.join(input, '.meteor');
+  var meteor_dir = join(input, '.meteor');
   return fs.existsSync(meteor_dir);
 }
 
@@ -125,9 +127,34 @@ function electrify(create) {
     process.exit();
   }
 
-  // otherwise use this one
-  var root = path.join(input, '.electrify');
-  return require('..')(root, program.output, parse_meteor_settings(), true);
+  // if electrify folder doesn't exist
+  if(create) {
+
+    // get list of meteor installed packages
+    var list = fs.readFileSync(join(input, '.meteor', 'packages'), 'utf-8');
+
+    // check if electrify is installed
+    if(!/^\s*arboleya:electrify\s*$/gm.test(list)) {
+
+      // if its not installed, install it
+      var pwd = shell.pwd();
+
+      console.log('antes', pwd);
+      
+      shell.cd(input);
+      shell.exec('meteor add arboleya:electrify');
+      shell.cd(pwd);
+      
+      console.log('depois', pwd);
+    }
+  }
+
+  return require('..')(
+    join(input, '.electrify'),
+    program.output,
+    parse_meteor_settings(),
+    true
+  );
 }
 
 
@@ -142,7 +169,7 @@ function has_local_electrify(){
   var input = program.input || process.cwd();
 
   // validates meteor project
-  return fs.existsSync(path.join(input, '.electrify'));
+  return fs.existsSync(join(input, '.electrify'));
 }
 
 
@@ -151,7 +178,7 @@ function parse_meteor_settings(reuturn_path_only) {
   if(!program.settings)
     return (reuturn_path_only ? null : {});
 
-  var relative = path.join(process.cwd(), program.settings);
+  var relative = join(process.cwd(), program.settings);
   var absolute = path.resolve(program.settings);
   var settings = (absolute == program.settings ? absolute : relative);
 

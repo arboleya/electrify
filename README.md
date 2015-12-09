@@ -207,14 +207,7 @@ app.on('ready', function() {
 
 You can seamlessly call Electron methods from your Meteor's client/server code.
 
-For this to work, first install `arboleya:electrify` Meteor package:
-
-````bash
-cd /your/meteor/app
-meteor add arboleya:electrify
-````
-
-Then, define your Electron methods inside the `.electrify` folder:
+Define your Electron methods inside the `.electrify` folder:
 
 ````javascript
 // `.electrify/index.js` file
