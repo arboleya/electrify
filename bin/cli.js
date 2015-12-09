@@ -138,14 +138,10 @@ function electrify(create) {
 
       // if its not installed, install it
       var pwd = shell.pwd();
-
-      console.log('antes', pwd);
       
       shell.cd(input);
       shell.exec('meteor add arboleya:electrify');
       shell.cd(pwd);
-      
-      console.log('depois', pwd);
     }
   }
 
