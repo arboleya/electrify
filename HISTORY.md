@@ -1,3 +1,7 @@
+2.1.3 / 2015-12-10
+===================
+  * Fixig Meteor's settings evaluation
+
 2.1.2 / 2015-12-09
 ===================
   * Using system NPM to perform installs
