@@ -1,3 +1,8 @@
+2.1.4 / 2015-12-14
+===================
+  * fixing windows env initialization
+  * properly spawning system npm on windows
+
 2.1.3 / 2015-12-10
 ===================
   * Fixig Meteor's settings evaluation
