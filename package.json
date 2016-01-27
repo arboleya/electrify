@@ -18,7 +18,8 @@
     "lodash": "^3.10.1",
     "server-destroy": "^1.0.1",
     "shelljs": "^0.5.3",
-    "sockjs": "^0.3.15"
+    "sockjs": "^0.3.15",
+    "sync-runner": "^0.1.5"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.1",
