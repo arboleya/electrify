@@ -1,3 +1,7 @@
+2.1.5 / 2016-03-15
+===================
+  * upgrading electron to last version
+
 2.1.4 / 2015-12-14
 ===================
   * fixing windows env initialization
@@ -20,7 +24,7 @@
 2.1.0 / 2015-12-08
 ===================
   * Added `preserve_db` option
-  
+
 2.0.2 / 2015-11-09
 ===================
   * Fixing last release (broken due to a wrong variable inside a conditional)
