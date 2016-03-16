@@ -1,5 +1,3 @@
-sudo: required
-
 language: node_js
 
 node_js:
@@ -9,9 +7,12 @@ os:
   - linux
   - osx
 
+before_install:
+  - curl https://install.meteor.com | /bin/sh
+  - export PATH="$HOME/.meteor:$PATH"
+
 install:
   - npm install
-  - sudo curl http://install.meteor.com | /bin/sh
   - node --version
   - meteor --version
 
